@@ -18,9 +18,26 @@ CREATE TABLE posts(
     authorid int references users(userid),
     posttext text,
     postdate timestamp,
-    likes int,
-    tag varchar(20)
-);
+    likes int
+ );
+
+
+-- TABLE FOR CATEGORY
+CREATE TABLE categoryContent {
+    categoryid serial primary,
+    beginnertips int[],
+    intermediatetip int[],
+    advancetips int[],
+    javatip int[],
+    reacttip int[],
+    jstip int[],
+    pythontip int[]
+};
+
+
+
+
+table
 
 -- CREATE TABLE categoryContent(
 --     skills,
