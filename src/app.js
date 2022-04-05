@@ -27,6 +27,9 @@ app.route('/login')
 
     })
 
+    //update user setting
+    //post content into their personal group of code
+
 //register
 app.route('/signup')
     .get((req,res)=>{
@@ -36,7 +39,21 @@ app.route('/signup')
 
     })
 
-//post
+
+//admin
+
+    //to get all user
+    //to creat content in the tips section
+    //be able to take postID and send it over to a genre
+    //create genres with an icon
+
+
+//category
+
+//create tips through an input field & post it into a certain section
+//
+
+
 
 
 

@@ -23,6 +23,7 @@ CREATE TABLE posts(
 
 
 -- TABLE FOR CATEGORY
+-- ADD ONLY CONTENT THROUGHT POST COMMNT THROUGH ADDMIN
 CREATE TABLE categoryContent {
     categoryid serial primary,
     beginnertips int[],
@@ -33,6 +34,11 @@ CREATE TABLE categoryContent {
     jstip int[],
     pythontip int[]
 };
+
+
+
+
+
 
 
 
