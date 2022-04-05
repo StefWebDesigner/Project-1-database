@@ -27,9 +27,6 @@ app.route('/login')
 
     })
 
-    //update user setting
-    //post content into their personal group of code
-
 //register
 app.route('/signup')
     .get((req,res)=>{
@@ -38,6 +35,15 @@ app.route('/signup')
     .post((req,res)=>{
 
     })
+
+
+//user
+
+        //update user setting
+        //post content into their personal group of code
+        //methods to share user
+
+
 
 
 //admin

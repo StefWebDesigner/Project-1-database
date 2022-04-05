@@ -1,5 +1,7 @@
 CREATE DATABASE project1;
 
+
+
 CREATE TABLE users(
     userid serial primary key,
     firstname varchar(30),
@@ -22,28 +24,23 @@ CREATE TABLE posts(
  );
 
 
--- TABLE FOR CATEGORY
--- ADD ONLY CONTENT THROUGHT POST COMMNT THROUGH ADDMIN
-CREATE TABLE categoryContent {
-    categoryid serial primary,
-    beginnertips int[],
-    intermediatetip int[],
-    advancetips int[],
-    javatip int[],
-    reacttip int[],
-    jstip int[],
-    pythontip int[]
-};
+
+
+create type genre as enum('beginner', 'intermediatetip', 'advancetips', 'javatip', 'reacttip', 'jstip', 'pythontip');
+
+create table category (
+      title text,
+      mainbodycontent text,
+      genreCategory genre
+);
+
+insert into category(title, mainbodycontent, genreCategory)
+values ('Training Tip', 'Sql basic.we will start here.', 'beginner'),
+       ('Get excited for JAva', 'Java exerises .....', 'javatip'),
+       ('React componet explained', 'Demo for component .....', 'reacttip');
 
 
 
-
-
-
-
-
-
-table
 
 -- CREATE TABLE categoryContent(
 --     skills,
