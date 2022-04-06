@@ -78,6 +78,25 @@ app.put('/updateUser/:userid', (req, res) => {
     })
 })
 
+app.delete('/deleteUser/:userid', (req, res) => {
+
+    let userid = req.params.userid;
+
+    db.query("DELETE FROM users WHERE userid=$1", [userid], (error, results) => {
+        if (error) {
+            throw error;
+        }
+
+        db.query("DELETE FROM users WHERE userid=$1", [userid], (error, results) => {
+            if (error) {
+                throw error;
+            }
+
+            res.status(200).send(`User id: ${userid} deleted.`);
+        });
+    });
+})
+
 app.listen(port, ()=>{
     console.log(`Listening on port ${port}`);
 });
