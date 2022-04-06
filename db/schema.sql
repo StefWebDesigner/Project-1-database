@@ -6,10 +6,10 @@ CREATE TABLE users(
     lastname varchar(30),
     username varchar(30) not null,
     password varchar(30) not null,
+    email varchar(50),
     city varchar(30),
     state varchar(30),
-    email varchar(50),
-    accountType varchar(10),
+    accounttype varchar(10),
     posts int[]
 );
 
