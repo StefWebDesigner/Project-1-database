@@ -13,7 +13,7 @@ CREATE TABLE users(
   city varchar(30),
   state varchar(30),
   email varchar(50),
-  account accountType
+  account accountType,
   post int[]
 );
 
