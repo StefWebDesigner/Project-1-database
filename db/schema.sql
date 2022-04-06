@@ -33,10 +33,11 @@ create table category (
       genreCategory genre
 );
 
-create table admin (
 
 
-);
+
+
+
 
 -- insert into category(title, mainbodycontent, genreCategory)
 -- values ('Training Tip', 'Sql basic.we will start here.', 'beginner'),
