@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('bodyParser');
 const db = require('./dbconnect'); //create file called dbconnect.js with your database pool info when ready
 const cors = require('cors');
+const axios = requrie("axios");
 
 const port = 4000;
 const app = express();
@@ -81,6 +82,24 @@ app.put('/updateUser/:userid', (req, res) => {
 app.delete('/deleteUser/:userid', (req, res) => {
 
     let userid = req.params.userid;
+
+
+//user
+        //update user setting
+        //post content into their personal group of code
+        //methods to share user
+
+//admin Attempts
+    //to get all user
+    //to creat content in the tips section
+    //be able to take postID and send it over to a genre
+    //create genres with an icon
+
+
+//category
+    //create tips through an input field & post it into a certain section
+//
+
 
     db.query("DELETE FROM users WHERE userid=$1", [userid], (error, results) => {
         if (error) {
