@@ -3,6 +3,7 @@ const bodyParser = require('bodyParser');
 const db = require('./dbconnect'); //create file called dbconnect.js with your database pool info when ready
 const path = require('path');
 const cors = require('cors');
+const axios = requrie("axios");
 
 const port = 4000;
 const app = express();
@@ -38,16 +39,11 @@ app.route('/signup')
 
 
 //user
-
         //update user setting
         //post content into their personal group of code
         //methods to share user
 
-
-
-
-//admin
-
+//admin Attempts
     //to get all user
     //to creat content in the tips section
     //be able to take postID and send it over to a genre
@@ -55,8 +51,7 @@ app.route('/signup')
 
 
 //category
-
-//create tips through an input field & post it into a certain section
+    //create tips through an input field & post it into a certain section
 //
 
 
