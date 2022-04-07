@@ -1,8 +1,8 @@
 const express = require('express');
-const bodyParser = require('bodyParser');
+const bodyParser = require('body-parser');
 const db = require('./dbconnect'); //create file called dbconnect.js with your database pool info when ready
 const cors = require('cors');
-const axios = requrie("axios");
+const axios = require("axios");
 
 const port = 4000;
 const app = express();
@@ -104,8 +104,23 @@ app.delete('/deleteUser/:userid', (req, res) => {
 //CREATE A GENRE
 app.post('/genre', (req, res) => {
 
+
     console.log(req.body);
-    res.status(201).send('Genre created');
+
+    const genreTitle = req.body.genreTitle;
+    const genreIcon = req.body.genreIcon;
+
+    db.query('INSERT INTO genres VALUES ($1, $2, $3) RETURNING genreId',
+        ['default', genreTitle,genreIcon], (error, results) => {
+
+            if (error) {
+                throw error;
+            }
+
+            res.status(201).send('Genre created');
+
+        });
+
 });
 
 
@@ -113,9 +128,19 @@ app.post('/genre', (req, res) => {
 app.post('/content/:genreId', (req, res) => {
 
     let genreid = req.params.genreid;
+    const title = req.body.title;
+    const bodyContent = req.body.bodyContent;
 
     console.log(req.body);
-    res.status(201).send('Tip Content Send');
+
+    db.query('INSERT INTO content VALUES ($1, $2, $3, $4) RETURNING contentId',
+        ['default', genreid, title, bodyContent ], (error, results) => {
+            if (error) {
+                throw error;
+            }
+
+            res.status(201).send('Tip Content Send');
+        });
 });
 
 //GET ALL CONTENT FROM A GENRE
@@ -123,7 +148,7 @@ app.post('/content/:genreId', (req, res) => {
 // app.get("/genreById/:username", (req, res) => {
 //     const username = req.params.username;
 //
-//     db.query('SELECT * FROM users WHERE username=$1', [username], (error, results) => {
+//     db.query('SELECT * FROM users WHERE genreId=$1', [username], (error, results) => {
 //         if (error) {
 //             throw error;
 //         }

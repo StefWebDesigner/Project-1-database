@@ -1,8 +1,8 @@
-CREATE DATABASE project1;
-
-create type genre as enum('beginner', 'intermediatetip', 'advancetips', 'javatip', 'reacttip', 'jstip', 'pythontip');
-
-create type accountType as enum('associate', 'admin');
+CREATE DATABASE postgres;
+--
+-- create type genre as enum('beginner', 'intermediatetip', 'advancetips', 'javatip', 'reacttip', 'jstip', 'pythontip');
+--
+-- create type accountType as enum('associate', 'admin');
 
 CREATE TABLE users(
   userid serial primary key,
@@ -26,7 +26,7 @@ CREATE TABLE posts(
  );
 
 
- CREATE TABLE genres(
+CREATE TABLE genres(
         genreId serial primary key,
         genreTitle varchar(30),
         genreIcon text
