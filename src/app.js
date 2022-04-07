@@ -144,16 +144,14 @@ app.delete('/deletecontent/:contentId', (req, res) => {
 
     let contentId = req.params.contentId;
 
-
     db.query("DELETE FROM tipContent WHERE contentId=$1", [contentId], (error, results) => {
         if (error) {
             throw error;
         }
 
             res.status(200).send(`Tip content: ${contentId} deleted.`);
-        );
-    });
-})
+            });
+       });
 
 
 /** EXTRA METHODS
@@ -161,10 +159,6 @@ app.delete('/deletecontent/:contentId', (req, res) => {
  * GET TOTAL USERS (USER FOR ADMIN STAT)
  * GET TOTOAL POST (POSTS FOR ADMIN STATS)
  */
-//TRANSFER A POST INTO A CATEGORY
-
-
-
 
 
 app.listen(port, ()=>{
