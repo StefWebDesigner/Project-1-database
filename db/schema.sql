@@ -17,7 +17,6 @@ CREATE TABLE users(
   post int[]
 );
 
-
 CREATE TABLE posts(
     postid serial primary key,
     authorid int references users(userid),
@@ -27,10 +26,15 @@ CREATE TABLE posts(
  );
 
 
+ CREATE TABLE genres(
+        genreid serial primary key
+ );
+
 create table category (
+      categoryid serial primary key,
+      genreid references genres(genreid),
       title text,
       mainbodycontent text,
-      genreCategory genre
 );
 
 

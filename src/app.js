@@ -84,23 +84,6 @@ app.delete('/deleteUser/:userid', (req, res) => {
     let userid = req.params.userid;
 
 
-//user
-        //update user setting
-        //post content into their personal group of code
-        //methods to share user
-
-//admin Attempts
-    //to get all user
-    //to creat content in the tips section
-    //be able to take postID and send it over to a genre
-    //create genres with an icon
-
-
-//category
-    //create tips through an input field & post it into a certain section
-//
-
-
     db.query("DELETE FROM users WHERE userid=$1", [userid], (error, results) => {
         if (error) {
             throw error;
@@ -115,6 +98,38 @@ app.delete('/deleteUser/:userid', (req, res) => {
         });
     });
 })
+
+
+//Admin
+
+//CREATE A GENRE
+app.post('/genre', (req, res) => {
+
+    console.log(req.body);
+    res.status(201).send('Category created');
+});
+
+
+//Create content in the tips section by id
+app.post('/category', (req, res) => {
+    console.log(req.body);
+    res.status(201).send('Category created');
+});
+
+
+
+//to creat content in the tips section
+//be able to take postID and send it over to a genre
+//create genres with an icon
+
+
+//category
+//create tips through an input field & post it into a certain section
+//
+
+
+
+
 
 app.listen(port, ()=>{
     console.log(`Listening on port ${port}`);
