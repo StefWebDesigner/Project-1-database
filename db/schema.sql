@@ -13,7 +13,7 @@ CREATE TABLE users(
   city varchar(30),
   state varchar(30),
   email varchar(50),
-  account accountType,
+  accountType varchar(30),
   post int[]
 );
 
@@ -30,13 +30,9 @@ CREATE TABLE posts(
 create table category (
       title text,
       mainbodycontent text,
-      genreCategory genre
+      genreCategory varchar(50)
 );
 
-create table admin (
-
-
-);
 
 -- insert into category(title, mainbodycontent, genreCategory)
 -- values ('Training Tip', 'Sql basic.we will start here.', 'beginner'),
