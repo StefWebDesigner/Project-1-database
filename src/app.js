@@ -110,22 +110,18 @@ app.post('/genre', (req, res) => {
 });
 
 
-//Create content in the tips section by id
-app.post('/category', (req, res) => {
+//CREATE A CONTENT IN CATEGORY BY GENRE ID
+app.post('/category/:genreid', (req, res) => {
+
+    let genreid = req.params.genreid;
+
     console.log(req.body);
-    res.status(201).send('Category created');
+    res.status(201).send('Tip Content Send');
 });
 
 
-
-//to creat content in the tips section
 //be able to take postID and send it over to a genre
 //create genres with an icon
-
-
-//category
-//create tips through an input field & post it into a certain section
-//
 
 
 
