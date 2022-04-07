@@ -1,8 +1,8 @@
 const express = require('express');
-const bodyParser = require('bodyParser');
+const bodyParser = require('body-parser');
 const db = require('./dbconnect'); //create file called dbconnect.js with your database pool info when ready
 const cors = require('cors');
-const axios = requrie("axios");
+const axios = require("axios");
 
 const port = 4000;
 const app = express();
