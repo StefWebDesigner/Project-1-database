@@ -99,8 +99,7 @@ app.delete('/deleteUser/:userid', (req, res) => {
     });
 })
 
-
-//Admin
+//ADMIN
 
 //CREATE A GENRE
 app.post('/genre', (req, res) => {
@@ -110,8 +109,8 @@ app.post('/genre', (req, res) => {
 });
 
 
-//CREATE A CONTENT IN CATEGORY BY GENRE ID
-app.post('/category/:genreid', (req, res) => {
+//CREATE A CONTENT IN TIPCONTENT BY GENRE ID
+app.post('/content/:genreId', (req, res) => {
 
     let genreid = req.params.genreid;
 
@@ -119,17 +118,42 @@ app.post('/category/:genreid', (req, res) => {
     res.status(201).send('Tip Content Send');
 });
 
-//GET CATEGORY CONTENT BY GENREID
+//GET ALL CONTENT FROM A GENRE
 
-app.get('/category/:genreid', (req, res) => {
+// app.get("/genreById/:username", (req, res) => {
+//     const username = req.params.username;
+//
+//     db.query('SELECT * FROM users WHERE username=$1', [username], (error, results) => {
+//         if (error) {
+//             throw error;
+//         }
+//         if (results.rowCount > 0) {
+//             //username found
+//             res.status(200).json(results.rows[0]);
+//         } else {
+//             //no user found
+//             res.status(200).json(null);
+//         }
+//     });
+// })
 
-    let genreid = req.params.genreid;
-
-    console.log(req.body);
-    res.status(201).send('Tip Content Send');
-});
 
 //DELETE CATEGORY CONTENT
+
+app.delete('/deletecontent/:contentId', (req, res) => {
+
+    let contentId = req.params.contentId;
+
+
+    db.query("DELETE FROM tipContent WHERE contentId=$1", [contentId], (error, results) => {
+        if (error) {
+            throw error;
+        }
+
+            res.status(200).send(`Tip content: ${contentId} deleted.`);
+        );
+    });
+})
 
 
 /** EXTRA METHODS

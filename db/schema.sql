@@ -32,8 +32,8 @@ CREATE TABLE posts(
         genreIcon text
  );
 
-CREATE TABLE tipContent (
-      tipId serial primary key,
+CREATE TABLE content (
+      contentId serial primary key,
       genreId references genres(genreid),
       title varchar(30),
       bodyContent text
