@@ -18,23 +18,31 @@ CREATE TABLE users(
 );
 
 CREATE TABLE posts(
-    postid serial primary key,
-    authorid int references users(userid),
-    posttext text,
-    postdate timestamp,
+    postId serial primary key,
+    authorId int references users(userid),
+    postText text,
+    postDate timestamp,
     likes int
  );
 
 
  CREATE TABLE genres(
-        genreid serial primary key
+        genreId serial primary key,
+        genreTitle varchar(30),
+        genreIcon text
  );
 
-create table category (
-      categoryid serial primary key,
-      genreid references genres(genreid),
-      title text,
-      mainbodycontent text,
+CREATE TABLE tipContent (
+      tipId serial primary key,
+      genreId references genres(genreid),
+      title varchar(30),
+      bodyContent text
+);
+
+CREATE TABLE survey (
+    surveyId int primary key,
+    starsRating int,
+    totalSurvey int,
 );
 
 

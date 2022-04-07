@@ -106,7 +106,7 @@ app.delete('/deleteUser/:userid', (req, res) => {
 app.post('/genre', (req, res) => {
 
     console.log(req.body);
-    res.status(201).send('Category created');
+    res.status(201).send('Genre created');
 });
 
 
@@ -119,9 +119,25 @@ app.post('/category/:genreid', (req, res) => {
     res.status(201).send('Tip Content Send');
 });
 
+//GET CATEGORY CONTENT BY GENREID
 
-//be able to take postID and send it over to a genre
-//create genres with an icon
+app.get('/category/:genreid', (req, res) => {
+
+    let genreid = req.params.genreid;
+
+    console.log(req.body);
+    res.status(201).send('Tip Content Send');
+});
+
+//DELETE CATEGORY CONTENT
+
+
+/** EXTRA METHODS
+ * TRANSFER A POST INTO A CATEGORY
+ * GET TOTAL USERS (USER FOR ADMIN STAT)
+ * GET TOTOAL POST (POSTS FOR ADMIN STATS)
+ */
+//TRANSFER A POST INTO A CATEGORY
 
 
 
