@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('./dbconnect'); //create file called dbconnect.js with your database pool info when ready
+const db = require('./dbconnect'); 
 const cors = require('cors');
 const axios = require("axios");
 
@@ -33,7 +33,7 @@ app.get("/userByPostid/:postid", (req, res) => {
 
 // insert into posts(postid, authorid, posttext, postdate, likes) 
 
-//insert new user into database
+//add new post into database
 app.post('/newPost', (req, res) => {
 
 
@@ -102,6 +102,28 @@ app.delete('/deletePost/:postid', (req, res) => {
     });
 })
 
-app.listen(port, ()=>{
-    console.log(`Listening on port ${port}`);
+
+//chat initiate
+app.post('/initchat', (req, res) => {
+        console.log(req.body);
+
+        const {userId1, userId2 } = req.body;
+
+        console.log(userId1, userId2);
+
+        //Compare the ids to the one in the table
+        db.query("SELECT  * FROM chat where (userid1 = $userid2 and userid2 = $userid1) or (userid2 = $userid2 and userid1 = $userid1)" , [userid1, userid2], (error, results) => {
+        if (error) {
+            throw error;
+        }
+
+        res.send("Chat initiated");
+        });
+
 });
+
+// app.listen(port, ()=>{
+//     console.log(`Listening on port ${port}`);
+// });
+
+module.exports = app;
