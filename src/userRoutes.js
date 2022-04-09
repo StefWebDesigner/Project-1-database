@@ -37,8 +37,8 @@ app.post('/newUser', (req, res) => {
     //role type -- let them choose their designation on form but get approval from an admin before sending to db?
     let { first, last, username, password, email, city, state, role } = req.body;
 
-    db.query('INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING userid',
-        ['default', first, last, username, password, email, city, state, role, []], (error, results) => {
+    db.query('INSERT INTO users (firstname, lastname, username, password, city, state, email, account) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING userid',
+        [first, last, username, password, city, state, email, role], (error, results) => {
 
         if (error) {
             throw error;
