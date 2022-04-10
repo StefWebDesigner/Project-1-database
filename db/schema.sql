@@ -23,11 +23,13 @@ CREATE TABLE posts(
     authorid int references users(userid),
     posttext text,
     postdate timestamp,
+    image varchar(70),
     likes int
  );
 
 
 create table category (
+      id int primary key,
       title text,
       mainbodycontent text,
       genreCategory varchar(50)
