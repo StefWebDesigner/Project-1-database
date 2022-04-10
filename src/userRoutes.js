@@ -22,6 +22,23 @@ app.get('/', (req, res) => {
 })
 
 
+//user
+        //update user setting
+        //post content into their personal group of code
+        //methods to share user
+
+//admin Attempts
+    //to get all user
+    //to creat content in the tips section
+    //be able to take postID and send it over to a genre
+    //create genres with an icon
+
+
+//category
+    //create tips through an input field & post it into a certain section
+//
+
+
 //retrieve single user info from username
 // http://localhost:4000/users/userByName/username
 app.get("/userByName/:username", (req, res) => {
@@ -42,22 +59,33 @@ app.get("/userByName/:username", (req, res) => {
 })
 
 
-// firstname 
-//   lastname 
-//   username 
-//   password 
-//   city 
-//   state 
-//   email 
-//   account 
+//retrieve single user info from username
+app.get("/allUsers", (req, res) => {
+
+    db.query('SELECT * FROM users', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows[0]);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+})
 
 //insert new user into database
 // http://localhost:4000/users/newUser
 app.post('/newUser', (req, res) => {
 let {  firstname, lastname, username, password, email, city, state, account } = req.body;
 
-    db.query('INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING userid',
-        [firstname, lastname, username, password, email, city, state, account ], (error, results) => {
+
+    //role type -- let them choose their designation on form but get approval from an admin before sending to db?
+    let { firstname, lastname, username, password, city, state, email, account } = req.body;
+
+    db.query('INSERT INTO users (firstname, lastname, username, password, city, state, email, account) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING userid',
+        [firstname, lastname, username, password, city, state, email, account], (error, results) => {
 
         if (error) {
             throw error;
@@ -65,7 +93,7 @@ let {  firstname, lastname, username, password, email, city, state, account } = 
 
         let userid = results.rows[0].userid;
 
-        res.status(200).send(`user added with userID: ${userid}`);
+        res.status(200).send({userid:id});
         }
     );
 })
@@ -99,21 +127,15 @@ app.put('/updateUser/:userid', (req, res) => {
 })
 // delete user by userId
 //http://localhost:4000/users/deleteUser/username
-app.delete('/deleteUser/:userid', (req, res) => {
+app.delete('/deleteUser/:username', (req, res) => {
 
-let username = req.params.username;
-    db.query("DELETE FROM users WHERE userid=$1", [username], (error, results) => {
+    let username = req.params.username;
+
+    db.query("DELETE FROM users WHERE username=$1", [username], (error, results) => {
         if (error) {
             throw error;
         }
-
-        db.query("DELETE FROM users WHERE userid=$1", [username], (error, results) => {
-            if (error) {
-                throw error;
-            }
-
-            res.status(200).send(`User id: ${username} deleted.`);
-        });
+        res.status(200).send(`User id: ${username} deleted.`);
     });
 })
 
