@@ -12,6 +12,15 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
 
 
+// get all posts
+app.get('/', (req, res) => {
+    db.query('SELECT * FROM posts', (error, result ) => {
+        if (error ) {
+        throw error 
+    } else 
+    res.status(200).json(results);
+    })
+})
 // retrieve single post from posts table
 app.get("/userByPostid/:postid", (req, res) => {
     const postid = req.params.postid;

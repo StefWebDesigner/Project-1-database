@@ -11,6 +11,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
 
+// get all users
+app.get('/', (req, res) => {
+    db.query('SELECT * FROM users', (error, result ) => {
+        if (error ) {
+        throw error 
+    } else 
+    res.status(200).json(results);
+    })
+})
+
 
 //user
         //update user setting
@@ -30,6 +40,7 @@ app.use(cors());
 
 
 //retrieve single user info from username
+// http://localhost:4000/users/userByName/username
 app.get("/userByName/:username", (req, res) => {
     const username = req.params.username;
 
@@ -46,6 +57,7 @@ app.get("/userByName/:username", (req, res) => {
         }
     });
 })
+
 
 //retrieve single user info from username
 app.get("/allUsers", (req, res) => {
@@ -67,18 +79,23 @@ app.get("/allUsers", (req, res) => {
 app.post('/newUser', (req, res) => {
 
 
+
+//insert new user into database
+// http://localhost:4000/users/newUser
+app.post('/newUser', (req, res) => {
+
     //role type -- let them choose their designation on form but get approval from an admin before sending to db?
     let { firstname, lastname, username, password, city, state, email, account } = req.body;
 
     db.query('INSERT INTO users (firstname, lastname, username, password, city, state, email, account) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING userid',
         [firstname, lastname, username, password, city, state, email, account], (error, results) => {
 
+
         if (error) {
             throw error;
         }
 
-        let id = results.rows[0].userid;
-
+        let userid = results.rows[0].userid;
         res.status(200).send({userid:id});
         }
     );
@@ -111,16 +128,18 @@ app.put('/updateUser/:userid', (req, res) => {
         });
     })
 })
-
+// delete user by userId
+//http://localhost:4000/users/deleteUser/username
 app.delete('/deleteUser/:userid', (req, res) => {
 
-    let userid = req.params.userid;
 
-    db.query("DELETE FROM users WHERE userid=$1", [userid], (error, results) => {
+let username = req.params.username;
+    db.query("DELETE FROM users WHERE username=$1", [username], (error, results) => {
         if (error) {
             throw error;
-        }
-        res.status(200).send(`User id: ${userid} deleted.`);
+         }
+
+        res.status(200).send(`User id: ${username} deleted.`);
     });
 })
 
