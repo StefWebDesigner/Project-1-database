@@ -78,8 +78,6 @@ app.get("/allUsers", (req, res) => {
 //insert new user into database
 // http://localhost:4000/users/newUser
 app.post('/newUser', (req, res) => {
-let {  firstname, lastname, username, password, email, city, state, account } = req.body;
-
 
     //role type -- let them choose their designation on form but get approval from an admin before sending to db?
     let { firstname, lastname, username, password, city, state, email, account } = req.body;
@@ -92,7 +90,6 @@ let {  firstname, lastname, username, password, email, city, state, account } = 
         }
 
         let userid = results.rows[0].userid;
-
         res.status(200).send({userid:id});
         }
     );
@@ -129,12 +126,13 @@ app.put('/updateUser/:userid', (req, res) => {
 //http://localhost:4000/users/deleteUser/username
 app.delete('/deleteUser/:username', (req, res) => {
 
-    let username = req.params.username;
 
+let username = req.params.username;
     db.query("DELETE FROM users WHERE username=$1", [username], (error, results) => {
         if (error) {
             throw error;
-        }
+         }
+
         res.status(200).send(`User id: ${username} deleted.`);
     });
 })
