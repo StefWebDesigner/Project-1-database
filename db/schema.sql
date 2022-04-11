@@ -46,6 +46,7 @@ create table tips (
 create table report (
     caseid serial primary key,
     reportid int references users(userid),
+    username varchar(30),
     issue text
 );
 
