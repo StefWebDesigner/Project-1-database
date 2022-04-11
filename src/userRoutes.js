@@ -127,4 +127,77 @@ app.delete('/deleteUser/:username', (req, res) => {
     });
 })
 
+
+//????
+app.get('/totalusers/account/admin', (req, res) => {
+
+    db.query("SELECT COUNT(account) FROM users WHERE account = 'admin'", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+});
+
+//????
+app.get('/totalusers/account/associate', (req, res) => {
+
+    db.query("SELECT COUNT(account) FROM users WHERE account = 'associate'", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+});
+
+
+app.get("/totalusers", (req, res) => {
+
+    db.query('SELECT COUNT(userid) FROM users', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+})
+
+
+
+app.post('/report/:userid', (req, res) => {
+
+    let userid = req.param.userid;
+
+    let { issue } = req.body;
+
+    db.query('INSERT INTO report (issue) VALUES ($1) RETURNING userid',
+        [issue], (error, results) => {
+
+            if (error) {
+                throw error;
+            }
+
+            let id = results.rows[0].userid;
+
+            res.status(200).send({userid:id});
+        }
+    );
+})
+
+
+
 module.exports = app;
