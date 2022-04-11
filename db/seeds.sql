@@ -54,7 +54,7 @@ values(24, 'New cocktail drink in town', 'a cocktail called pain killer is so go
 
 
 
-INSERT INTO tips (tiptitle, tipbody, tipimage) VALUES ('Beginner Java', 'These are some great tips for learning java...', 'no image');
- 
- 
+
+ insert into tips (tiptitle, tipbody, tipgenre)
+ values('title example', 'fact to java', 'Java');
  

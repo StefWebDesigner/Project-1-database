@@ -34,15 +34,22 @@ app.get("/categoryByTitle/:title", (req, res) => {
             res.status(200).json(null);
         }
     });
-})
+});
 
 
+
+//TO POST A CATEGORY
+
+
+
+
+//????
 app.post('/newtips', (req, res) => {
 
     let { tiptitle, tipbody, tipgenre } = req.body;
 
-    db.query('INSERT INTO tips VALUES ($1, $2, $3) RETURNING tipid',
-        [tiptitle, tipbody, tipgenre ], (error, results) => {
+    db.query('INSERT INTO tips (tiptitle, tipbody, tipgenre) VALUES ($1, $2, $3) RETURNING tipid',
+        [tiptitle, tipbody, tipgenre], (error, results) => {
 
             if (error) {
                 throw error;
@@ -50,7 +57,7 @@ app.post('/newtips', (req, res) => {
 
             let id = results.rows[0].tipid;
 
-            res.status(200).send(`user added with ID: ${tipid}`);
+            res.status(200).send(`tip content added with ID: ${tipid}`);
         }
     );
 });

@@ -124,6 +124,40 @@ app.delete('/deleteUser/:userid', (req, res) => {
     });
 })
 
+
+//????
+app.get('/totalusers/account/admin', (req, res) => {
+
+    db.query("SELECT COUNT(account) FROM users WHERE account = 'admin'", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+});
+
+//????
+app.get('/totalusers/account/associate', (req, res) => {
+
+    db.query("SELECT COUNT(account) FROM users WHERE account = 'associate'", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+});
+
+
 app.get("/totalusers", (req, res) => {
 
     db.query('SELECT COUNT(userid) FROM users', (error, results) => {
@@ -138,6 +172,8 @@ app.get("/totalusers", (req, res) => {
         }
     });
 })
+
+
 
 app.post('/report/:userid', (req, res) => {
 
