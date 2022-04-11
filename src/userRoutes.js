@@ -79,7 +79,7 @@ app.post('/newUser', (req, res) => {
         }
 
         let userid = results.rows[0].userid;
-        res.status(200).send({userid:id});
+        res.status(200).send({userid});
         }
     );
 })
