@@ -50,6 +50,8 @@ insert into category(id, title, mainbodycontent, genreCategory)
 values(24, 'New cocktail drink in town', 'a cocktail called pain killer is so good  that I would love to have it  very often', 'Drink')
 
 
- 
- 
+
+
+ insert into tips (tiptitle, tipbody, tipgenre)
+ values('title example', 'fact to java', 'Java');
  

@@ -2,14 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./dbconnect'); //create file called dbconnect.js with your database pool info when ready
 const cors = require('cors');
-const axios = require("axios");
 
-const port = 4000;
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
+
 
 
 // retrieve single user info from username
@@ -47,6 +46,7 @@ app.get("/allUsers", (req, res) => {
         }
     });
 })
+
 
 //insert new user into database
 // http://localhost:4000/users/newUser
@@ -95,19 +95,93 @@ app.put('/updateUser/:userid', (req, res) => {
         });
     })
 })
+
 // delete user by userId
 //http://localhost:4000/users/deleteUser/username
 app.delete('/deleteUser/:username', (req, res) => {
 
-
-let username = req.params.username;
+    let username = req.params.username;
+    
     db.query("DELETE FROM users WHERE username=$1", [username], (error, results) => {
         if (error) {
             throw error;
          }
 
-        res.status(200).send(`User id: ${username} deleted.`);
+        res.status(200).send(`${username}`);
     });
 })
+
+
+//????
+app.get('/totalusers/account/admin', (req, res) => {
+
+    db.query("SELECT COUNT(account) FROM users WHERE account = 'admin'", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+});
+
+//????
+app.get('/totalusers/account/associate', (req, res) => {
+
+    db.query("SELECT COUNT(account) FROM users WHERE account = 'associate'", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+});
+
+
+app.get("/totalusers", (req, res) => {
+
+    db.query('SELECT COUNT(userid) FROM users', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+})
+
+
+
+app.post('/report/:userid', (req, res) => {
+
+    let userid = req.param.userid;
+
+    let { issue } = req.body;
+
+    db.query('INSERT INTO report (issue) VALUES ($1) RETURNING userid',
+        [issue], (error, results) => {
+
+            if (error) {
+                throw error;
+            }
+
+            let id = results.rows[0].userid;
+
+            res.status(200).send({userid:id});
+        }
+    );
+})
+
+
 
 module.exports = app;

@@ -53,10 +53,10 @@ app.get("/userByPostid/:postid", (req, res) => {
 app.post('/newPost', (req, res) => {
 
 
-    let { postid, authorid, posttext, postdate, likes } = req.body;
+    let { authorid, posttext } = req.body;
 
-    db.query('INSERT INTO posts VALUES ($1, $2, $3, $4, $5) RETURNING postid',
-        ['default', postid, authorid, posttext, postdate, likes ], (error, results) => {
+    db.query('INSERT INTO posts (authorid, posttext, postdate, likes) VALUES ($1, $2, now(), 0) RETURNING postid',
+        [authorid, posttext], (error, results) => {
 
         if (error) {
             throw error;
@@ -64,9 +64,10 @@ app.post('/newPost', (req, res) => {
 
         let id = results.rows[0].postid;
 
-        res.status(200).send(`user added with ID: ${id}`);
-        }
-    );
+        db.query('UPDATE users SET post= array_append(post, $1) WHERE userid=$2', [id, authorid], (error, results)=>{
+            res.status(200).end();
+        });
+    });
 })
 
 //updates user information based on form data
