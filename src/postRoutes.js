@@ -13,13 +13,20 @@ app.use(cors());
 
 
 // get all posts
-app.get('/', (req, res) => {
-    db.query('SELECT * FROM posts', (error, result ) => {
-        if (error ) {
-        throw error 
-    } else 
-    res.status(200).json(results);
-    })
+// http://localhost:4000/posts/newUser
+app.get("/Posts", (req, res) => {
+
+    db.query('SELECT * FROM posts', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
 })
 // retrieve single post from posts table
 app.get("/userByPostid/:postid", (req, res) => {
@@ -131,12 +138,5 @@ app.post('/initchat', (req, res) => {
         });
 
 });
-
-
-
-
-// app.listen(port, ()=>{
-//     console.log(`Listening on port ${port}`);
-// });
 
 module.exports = app;

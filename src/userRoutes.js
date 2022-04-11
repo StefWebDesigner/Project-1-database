@@ -9,24 +9,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
 
-//user
-        //update user setting
-        //post content into their personal group of code
-        //methods to share user
-
-//admin Attempts
-    //to get all user
-    //to creat content in the tips section
-    //be able to take postID and send it over to a genre
-    //create genres with an icon
 
 
-//category
-    //create tips through an input field & post it into a certain section
-//
-
-
-//retrieve single user info from username
+// retrieve single user info from username
 // http://localhost:4000/users/userByName/username
 app.get("/userByName/:username", (req, res) => {
     const username = req.params.username;
@@ -46,7 +31,7 @@ app.get("/userByName/:username", (req, res) => {
 })
 
 
-//retrieve single user info from username
+//retrieve all users info from username
 app.get("/allUsers", (req, res) => {
 
     db.query('SELECT * FROM users', (error, results) => {
@@ -72,7 +57,6 @@ app.post('/newUser', (req, res) => {
 
     db.query('INSERT INTO users (firstname, lastname, username, password, city, state, email, account) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING userid',
         [firstname, lastname, username, password, city, state, email, account], (error, results) => {
-
 
         if (error) {
             throw error;
