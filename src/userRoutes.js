@@ -55,7 +55,7 @@ app.get("/allUsers", (req, res) => {
             throw error;
         }
         if (results.rowCount > 0) {
-            res.status(200).json(results.rows[0]);
+            res.status(200).json(results.rows);
         } else {
             //no users found
             res.status(200).json(null);
@@ -123,5 +123,21 @@ app.delete('/deleteUser/:userid', (req, res) => {
         res.status(200).send(`User id: ${userid} deleted.`);
     });
 })
+
+app.get("/totalusers", (req, res) => {
+
+    db.query('SELECT COUNT(userid) FROM users', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+})
+
 
 module.exports = app;
