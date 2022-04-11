@@ -11,35 +11,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
 
-// get all users
-app.get('/', (req, res) => {
-    db.query('SELECT * FROM users', (error, result ) => {
-        if (error ) {
-        throw error 
-    } else 
-    res.status(200).json(results);
-    })
-})
 
-
-//user
-        //update user setting
-        //post content into their personal group of code
-        //methods to share user
-
-//admin Attempts
-    //to get all user
-    //to creat content in the tips section
-    //be able to take postID and send it over to a genre
-    //create genres with an icon
-
-
-//category
-    //create tips through an input field & post it into a certain section
-//
-
-
-//retrieve single user info from username
+// retrieve single user info from username
 // http://localhost:4000/users/userByName/username
 app.get("/userByName/:username", (req, res) => {
     const username = req.params.username;
@@ -59,7 +32,7 @@ app.get("/userByName/:username", (req, res) => {
 })
 
 
-//retrieve single user info from username
+//retrieve all users info from username
 app.get("/allUsers", (req, res) => {
 
     db.query('SELECT * FROM users', (error, results) => {
@@ -67,7 +40,7 @@ app.get("/allUsers", (req, res) => {
             throw error;
         }
         if (results.rowCount > 0) {
-            res.status(200).json(results.rows[0]);
+            res.status(200).json(results.rows);
         } else {
             //no users found
             res.status(200).json(null);
@@ -90,7 +63,7 @@ app.post('/newUser', (req, res) => {
         }
 
         let userid = results.rows[0].userid;
-        res.status(200).send({userid:id});
+        res.status(200).send({userid});
         }
     );
 })
