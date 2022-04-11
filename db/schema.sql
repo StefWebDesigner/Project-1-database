@@ -35,6 +35,13 @@ create table category (
       genreCategory varchar(50)
 );
 
+create table report (
+    reportid primary key,
+    userid references(users),
+    username references(users),
+    issue text
+);
+
 
 -- insert into category(title, mainbodycontent, genreCategory)
 -- values ('Training Tip', 'Sql basic.we will start here.', 'beginner'),
