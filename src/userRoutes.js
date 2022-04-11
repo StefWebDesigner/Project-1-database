@@ -2,25 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./dbconnect'); //create file called dbconnect.js with your database pool info when ready
 const cors = require('cors');
-const axios = require("axios");
 
-const port = 4000;
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
-
-// get all users
-app.get('/', (req, res) => {
-    db.query('SELECT * FROM users', (error, result ) => {
-        if (error ) {
-        throw error 
-    } else 
-    res.status(200).json(results);
-    })
-})
-
 
 //user
         //update user setting
@@ -67,17 +54,13 @@ app.get("/allUsers", (req, res) => {
             throw error;
         }
         if (results.rowCount > 0) {
-            res.status(200).json(results.rows[0]);
+            res.status(200).json(results.rows);
         } else {
             //no users found
             res.status(200).json(null);
         }
     });
 })
-
-//insert new user into database
-app.post('/newUser', (req, res) => {
-
 
 
 //insert new user into database
@@ -128,18 +111,19 @@ app.put('/updateUser/:userid', (req, res) => {
         });
     })
 })
+
 // delete user by userId
 //http://localhost:4000/users/deleteUser/username
-app.delete('/deleteUser/:userid', (req, res) => {
+app.delete('/deleteUser/:username', (req, res) => {
 
-
-let username = req.params.username;
+    let username = req.params.username;
+    
     db.query("DELETE FROM users WHERE username=$1", [username], (error, results) => {
         if (error) {
             throw error;
          }
 
-        res.status(200).send(`User id: ${username} deleted.`);
+        res.status(200).send(`${username}`);
     });
 })
 
