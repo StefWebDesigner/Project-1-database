@@ -40,7 +40,7 @@ create table tips (
 	tipid serial primary key,
 	tiptitle varchar(30),
 	tipbody text,
-	tipimage text
+	tipgenre varchar(60)
 );
 
 create table report (
