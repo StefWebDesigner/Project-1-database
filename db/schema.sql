@@ -35,12 +35,20 @@ create table category (
       genreCategory varchar(50)
 );
 
+
+create table tips (
+	tipid serial primary key,
+	tiptitle varchar(30),
+	tipbody text,
+	tipimage text
+);
+
 create table report (
-    reportid primary key,
-    userid references(users),
-    username references(users),
+    caseid serial primary key,
+    reportid int references users(userid),
     issue text
 );
+
 
 
 -- insert into category(title, mainbodycontent, genreCategory)

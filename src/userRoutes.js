@@ -139,5 +139,26 @@ app.get("/totalusers", (req, res) => {
     });
 })
 
+app.post('/report/:userid', (req, res) => {
+
+    let userid = req.param.userid;
+
+    let { issue } = req.body;
+
+    db.query('INSERT INTO report (issue) VALUES ($1) RETURNING userid',
+        [issue], (error, results) => {
+
+            if (error) {
+                throw error;
+            }
+
+            let id = results.rows[0].userid;
+
+            res.status(200).send({userid:id});
+        }
+    );
+})
+
+
 
 module.exports = app;
