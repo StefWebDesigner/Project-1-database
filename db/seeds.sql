@@ -22,22 +22,19 @@ insert into users(firstname,lastname, username, password, city, state, email, ac
 
 -- posts seeds --
 insert into posts( authorid, posttext, image, likes) 
- values (1, 'Astra launched its first rocket from Florida ', 'https://imgur.com/a/x0bVVic', 256 );
+ values (1, 'Java stands out when it comes to OOP. ', 'https://imgur.com/ZciDcYT', 256 );
 
  insert into posts( authorid, posttext, image, likes) 
- values (2, 'Travllers having fun in Germany', 'https://imgur.com/zJTZBpV', 155 );
+ values (2, 'React is one the popular JS front-end libraries.', 'https://imgur.com/84FTa8k', 155 );
 
  insert into posts( authorid, posttext,  image, likes) 
- values (3, 'Not one of the best posts', 'https://imgur.com/NnhgPJU', 388 );
+ values (3, 'JS can do both front-end and back-end jobs.', 'https://imgur.com/37o8AdA', 388 );
 
  insert into posts( authorid, posttext,  image, likes) 
- values (4, 'Beautiful lake Bohinji Slovenia', 'https://imgur.com/Hu6oQXp', 567 );
+ values (4, 'Typescript is the super hand of javascript', 'https://imgur.com/fZiBhZ8', 567 );
 
  insert into posts( authorid, posttext, image, likes) 
- values (5, 'A night in Amesterdam',  'https://imgur.com/uG2HAXB', 654 );
-
- insert into posts( authorid, posttext, image, likes) 
- values (6, 'Beautiful Pula', 'https://imgur.com/JzQqUdw', 345 );
+ values (5, 'Node JS a javascript work environment',  'https://imgur.com/kbDOHV2', 654 );
 
 -- category seeds --
 
@@ -53,6 +50,8 @@ insert into category(id, title, mainbodycontent, genreCategory)
 values(24, 'New cocktail drink in town', 'a cocktail called pain killer is so good  that I would love to have it  very often', 'Drink')
 
 
- 
- 
+
+
+ insert into tips (tiptitle, tipbody, tipgenre)
+ values('title example', 'fact to java', 'Java');
  
