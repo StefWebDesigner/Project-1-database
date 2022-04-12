@@ -1,20 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('./dbconnect'); 
+const db = require('./dbconnect');
 const cors = require('cors');
-const axios = require("axios");
-
-const port = 4000;
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 
 // get all posts
-//http://localhost:4000/posts/
-app.get('/', (req, res) => {
+
+// http://localhost:4000/posts/getAllPosts
+app.get("/getAllPosts", (req, res) => {
     db.query('SELECT * FROM posts', (error, results ) => {
         if (error ) {
         throw error 
@@ -44,7 +42,8 @@ app.get('/withUserInfo', (req,res)=>{
 });
 
 // retrieve single post from posts table
-app.get("/postById/:postid", (req, res) => {
+// http://localhost:4000/posts/PostByid/id
+app.get("/PostByid/:postid", (req, res) => {
     const postid = req.params.postid;
 
     db.query('SELECT * FROM posts WHERE postid=$1', [postid], (error, results) => {
@@ -62,9 +61,8 @@ app.get("/postById/:postid", (req, res) => {
 })
 
 
-// insert into posts(postid, authorid, posttext, postdate, likes) 
-
 //add new post into database
+// http://localhost:4000/posts/newPost
 app.post('/newPost', (req, res) => {
 
 
@@ -73,18 +71,21 @@ app.post('/newPost', (req, res) => {
     db.query('INSERT INTO posts (authorid, posttext, postdate, likes) VALUES ($1, $2, now(), 0) RETURNING postid',
         [authorid, posttext], (error, results) => {
 
-        if (error) {
-            throw error;
-        }
+            if (error) {
+                throw error;
+            }
 
-        let id = results.rows[0].postid;
+            let id = results.rows[0].postid;
 
-        db.query('UPDATE users SET post= array_append(post, $1) WHERE userid=$2', [id, authorid], (error, results)=>{
-            res.status(200).end();
+            db.query('UPDATE users SET post= array_append(post, $1) WHERE userid=$2', [id, authorid], (error, results) => {
+                res.status(200).end();
+            });
         });
-    });
 })
 
+
+//updates post information based on form data
+// http://localhost:4000/posts/updatePost/postid
 //updates post content
 app.put('/updatePost/:postid', (req, res) => {
 
@@ -92,13 +93,15 @@ app.put('/updatePost/:postid', (req, res) => {
 
     db.query("UPDATE posts SET posttext=$1 WHERE postid=$2",
         [req.posttext, postid], (error, results) => {
-        if (error) {
-            throw error;
-        }
-        res.status(200).end();
-    });
+            if (error) {
+                throw error;
+            }
+            res.status(200).end();
+        });
 })
 
+//delete a post and remove reference from users
+// http://localhost:4000/posts/deletePost/id
 //delete a post and remove reference from users
 app.delete('/deletePost/:postid', (req, res) => {
 
@@ -114,9 +117,9 @@ app.delete('/deletePost/:postid', (req, res) => {
         let userid = results.rows[0].authorid;
 
         //get post array for user
-        db.query("SELECT post FROM users WHERE userid=$1", [userid], (error, results)=>{
+        db.query("SELECT post FROM users WHERE userid=$1", [userid], (error, results) => {
 
-            if(error){
+            if (error) {
                 throw error;
             }
 
@@ -124,14 +127,14 @@ app.delete('/deletePost/:postid', (req, res) => {
             let index = -1;
 
             //find index of post in post array
-            for(let i=0; i<posts.length; i++){
-                if(posts[i] == postid){
+            for (let i = 0; i < posts.length; i++) {
+                if (posts[i] == postid) {
                     index = i;
                 }
             }
 
             //remove post from post list
-            if(index > -1){
+            if (index > -1) {
                 posts.splice(index, 1);
 
                 //update post list for user so deleted post is not referenced
@@ -141,30 +144,29 @@ app.delete('/deletePost/:postid', (req, res) => {
                     }
                     res.status(200).end();
                 });
-            }  else {
+            } else {
                 res.status(200);
             }
         });
     });
 })
 
-
 //chat initiate
 app.post('/initchat', (req, res) => {
-        console.log(req.body);
+    console.log(req.body);
 
-        const {userId1, userId2 } = req.body;
+    const { userId1, userId2 } = req.body;
 
-        console.log(userId1, userId2);
+    console.log(userId1, userId2);
 
-        //Compare the ids to the one in the table
-        db.query("SELECT  * FROM chat where (userid1 = $userid2 and userid2 = $userid1) or (userid2 = $userid2 and userid1 = $userid1)" , [userid1, userid2], (error, results) => {
+    //Compare the ids to the one in the table
+    db.query("SELECT  * FROM chat where (userid1 = $userid2 and userid2 = $userid1) or (userid2 = $userid2 and userid1 = $userid1)", [userid1, userid2], (error, results) => {
         if (error) {
             throw error;
         }
 
         res.send("Chat initiated");
-        });
+    });
 
 });
 

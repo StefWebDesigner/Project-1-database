@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('./dbconnect'); //create file called dbconnect.js with your database pool info when ready
+const db = require('./dbconnect'); 
 const cors = require('cors');
 
 const app = express();
@@ -51,8 +51,6 @@ app.get("/allUsers", (req, res) => {
 //insert new user into database
 // http://localhost:4000/users/newUser
 app.post('/newUser', (req, res) => {
-
-    //role type -- let them choose their designation on form but get approval from an admin before sending to db?
     let { firstname, lastname, username, password, city, state, email, account } = req.body;
 
     db.query('INSERT INTO users (firstname, lastname, username, password, city, state, email, account) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING userid',

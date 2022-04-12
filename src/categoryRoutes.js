@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('./dbconnect'); 
+const db = require('./dbconnect');
 const cors = require('cors');
 const axios = require("axios");
 
@@ -8,22 +8,22 @@ const port = 4000;
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 // get all categories
-// http://localhost:4000/categories
+// http://localhost:4000/categories/getAll
 
-app.get('/', (req, res) => {
-    db.query('SELECT * FROM category', (error, result ) => {
-        if (error ) {
-        throw error 
-    } else 
-    res.status(200).json(results);
+app.get('/getAll', (req, res) => {
+    db.query('SELECT * FROM category', (error, results) => {
+        if (error) {
+            throw error
+        } else
+            res.status(200).json(results);
     })
 })
 
-
+// get category by id
 // http://localhost:4000/categories/categoryById/id
 app.get("/categoryById/:id", (req, res) => {
     const id = req.params.id;
@@ -34,7 +34,7 @@ app.get("/categoryById/:id", (req, res) => {
         }
         if (results.rowCount > 0) {
             //id  found
-            res.status(200).json(results.rows[0]);
+            res.status(200).json(results.rows);
         } else {
             //no category found
             res.status(200).json(null);
@@ -44,12 +44,6 @@ app.get("/categoryById/:id", (req, res) => {
 
 
 
-//TO POST A CATEGORY
-
-
-
-
-//????
 app.post('/newtips', (req, res) => {
 
     let { tiptitle, tipbody, tipgenre } = req.body;
@@ -68,7 +62,6 @@ app.post('/newtips', (req, res) => {
     );
 });
 
-//????
 app.post('/makereport', (req, res) => {
     let { username, issue } = req.body;
 
