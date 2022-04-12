@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('./dbconnect'); //create file called dbconnect.js with your database pool info when ready
+const db = require('./dbconnect'); 
 const cors = require('cors');
 const axios = require("axios");
 
@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
 
 
-// retrieve single user info from username
+// retrieve single user from users table
 // http://localhost:4000/users/userByName/username
 app.get("/userByName/:username", (req, res) => {
     const username = req.params.username;
@@ -51,8 +51,6 @@ app.get("/allUsers", (req, res) => {
 //insert new user into database
 // http://localhost:4000/users/newUser
 app.post('/newUser', (req, res) => {
-
-    //role type -- let them choose their designation on form but get approval from an admin before sending to db?
     let { firstname, lastname, username, password, city, state, email, account } = req.body;
 
     db.query('INSERT INTO users (firstname, lastname, username, password, city, state, email, account) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING userid',
@@ -100,7 +98,7 @@ app.put('/updateUser/:userid', (req, res) => {
 app.delete('/deleteUser/:username', (req, res) => {
 
 
-let username = req.params.username;
+    let username = req.params.username;
     db.query("DELETE FROM users WHERE username=$1", [username], (error, results) => {
         if (error) {
             throw error;

@@ -34,19 +34,3 @@ create table category (
       mainbodycontent text,
       genreCategory varchar(50)
 );
-
-
--- insert into category(title, mainbodycontent, genreCategory)
--- values ('Training Tip', 'Sql basic.we will start here.', 'beginner'),
---        ('Get excited for JAva', 'Java exerises .....', 'javatip'),
---        ('React componet explained', 'Demo for component .....', 'reacttip');
---
--- insert into users (userid, firstname, lastname, username, password, city, state, email, account)
--- values 	       (1, 'Stefan', 'Riley', 'StefMan', 'pass', 'Balitmore', 'MA', 'stefan@email.com', 'associate');
--- select * from users;
-
-
--- CREATE TABLE categoryContent(
---     skills,
---     languages
--- );
