@@ -10,20 +10,22 @@ app.use(cors());
 
 
 // get all posts
-
 // http://localhost:4000/posts/getAllPosts
 app.get("/getAllPosts", (req, res) => {
-    db.query('SELECT * FROM posts', (error, results ) => {
-        if (error ) {
-        throw error 
-    }
-    if(results.rowCount > 0) {
-        res.status(200).json(results.rows);
-    } else {
-        res.status(200).send(null);
-    }
+
+    db.query('SELECT * FROM posts', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
     });
-});
+})
+
 
 //gets all posts with username
 //http://localhost:4000/posts/withUserInfo
@@ -65,26 +67,24 @@ app.get("/PostByid/:postid", (req, res) => {
 // http://localhost:4000/posts/newPost
 app.post('/newPost', (req, res) => {
 
-
     let { authorid, posttext } = req.body;
 
     db.query('INSERT INTO posts (authorid, posttext, postdate, likes) VALUES ($1, $2, now(), 0) RETURNING postid',
         [authorid, posttext], (error, results) => {
 
-            if (error) {
-                throw error;
-            }
+        if (error) {
+            throw error;
+        }
 
-            let id = results.rows[0].postid;
+        let id = results.rows[0].postid;
 
-            db.query('UPDATE users SET post= array_append(post, $1) WHERE userid=$2', [id, authorid], (error, results) => {
-                res.status(200).end();
-            });
+        db.query('UPDATE users SET post= array_append(post, $1) WHERE userid=$2', [id, authorid], (error, results) => {
+            res.status(200).end();
         });
+    });
 })
 
-
-//updates post information based on form data
+//updates user information based on form data
 // http://localhost:4000/posts/updatePost/postid
 //updates post content
 app.put('/updatePost/:postid', (req, res) => {
@@ -93,16 +93,15 @@ app.put('/updatePost/:postid', (req, res) => {
 
     db.query("UPDATE posts SET posttext=$1 WHERE postid=$2",
         [req.posttext, postid], (error, results) => {
-            if (error) {
-                throw error;
-            }
-            res.status(200).end();
-        });
+        if (error) {
+            throw error;
+        }
+        res.status(200).end();
+    });
 })
 
 //delete a post and remove reference from users
 // http://localhost:4000/posts/deletePost/id
-//delete a post and remove reference from users
 app.delete('/deletePost/:postid', (req, res) => {
 
     let postid = req.params.postid;
@@ -110,14 +109,15 @@ app.delete('/deletePost/:postid', (req, res) => {
 
     //delete post from post table
     db.query("DELETE FROM posts WHERE postid=$1 RETURNING authorid", [postid], (error, results) => {
+
         if (error) {
             throw error;
         }
-
         let userid = results.rows[0].authorid;
 
         //get post array for user
         db.query("SELECT post FROM users WHERE userid=$1", [userid], (error, results) => {
+
 
             if (error) {
                 throw error;
