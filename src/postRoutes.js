@@ -31,12 +31,12 @@ app.get('/', (req, res) => {
 //http://localhost:4000/posts/withUserInfo
 app.get('/withUserInfo', (req,res)=>{
 
-    db.query('SELECT p.posttext, p.postdate, p.likes, u.username FROM posts p LEFT JOIN users u ON p.authorid=u.userid', (error, results) => {
+    db.query('SELECT p.postid, p.posttext, p.postdate, p.likes, u.username FROM posts p LEFT JOIN users u ON p.authorid=u.userid', (error, results) => {
         if (error) {
             throw error
         }
         if (results.rowCount > 0) {
-            res.status(200).json(results.rows);
+            res.status(200).send(results.rows);
         } else {
             res.status(200).send(null);
         }
