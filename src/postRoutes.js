@@ -53,7 +53,7 @@ app.get("/PostByid/:postid", (req, res) => {
 app.post('/newPost', (req, res) => {
 
 
-    let { postid, authorid, posttext, postdate, likes } = req.body;
+    let { authorid, posttext } = req.body;
 
     db.query('INSERT INTO posts VALUES ($1, $2, $3, $4, $5) RETURNING postid',
         [ postid, authorid, posttext, postdate, likes], (error, results) => {

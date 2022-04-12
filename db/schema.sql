@@ -34,3 +34,21 @@ create table category (
       mainbodycontent text,
       genreCategory varchar(50)
 );
+
+
+create table tips (
+	tipid serial primary key,
+	tiptitle varchar(30),
+	tipbody text,
+	tipgenre varchar(60)
+);
+
+create table report (
+    caseid serial primary key,
+    reportid int references users(userid),
+    username varchar(30),
+    issue text
+);
+
+
+

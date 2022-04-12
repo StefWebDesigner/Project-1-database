@@ -40,68 +40,49 @@ app.get("/categoryById/:id", (req, res) => {
             res.status(200).json(null);
         }
     });
-})
-// add new category
-// http://localhost:4000/categories/newCategory
-app.post('/newCategory', (req, res) => {
+});
 
-    let {id, title, mainbodycontent, genreCategory } = req.body;
 
-    db.query('INSERT INTO category(id, title, mainbodycontent, genreCategory) VALUES ($1, $2, $3, $4) RETURNING id',
-        [id, title, mainbodycontent, genreCategory], (error, results) => {
 
-        if (error) {
-            throw error;
-        }
+app.post('/newtips', (req, res) => {
 
-        let id = results.rows[0].id;
-        res.status(200).send({id});
-        }
-    );
-})
+    let { tiptitle, tipbody, tipgenre } = req.body;
 
-// update Category byId
-// http://localhost:4000/categories/updateCategory/id
-app.put('/updateCategory/:id', (req, res) => {
+    db.query('INSERT INTO tips (tiptitle, tipbody, tipgenre) VALUES ($1, $2, $3) RETURNING tipid',
+        [tiptitle, tipbody, tipgenre], (error, results) => {
 
-    let id = req.params.id;
-
-    db.query("SELECT * FROM category WHERE id=$1", [id], (error, results) => {
-        if (error) {
-            throw error;
-        }
-
-        let prevInfo = {};
-
-        if (results.rowCount > 0) {
-            prevInfo = results.rows[0];
-        }
-
-        let category = { ...prevInfo, ...req.body };
-
-        db.query("UPDATE category SET title=$1, mainbodycontent=$2, genreCategory=$3, WHERE id=$4"
-            [category.title, category.mainbodycontent, category.genreCategory, category.id], (error, results) => {
             if (error) {
                 throw error;
             }
-            res.status(200).send(`Catagory with id ${id} is successfully updated:`);
-        });
-    })
-})
-// delete category
-// http://localhost:4000/categories/deleteCategory/id
 
-app.delete('/deleteCategory/:id', (req, res) => {
+            let id = results.rows[0].tipid;
 
+            res.status(200).send(`tip content added with ID: ${tipid}`);
+        }
+    );
+});
 
-    let id = req.params.id;
-    db.query("DELETE FROM category WHERE id=$1", [id], (error, results) => {
+app.post('/makereport', (req, res) => {
+    let { username, issue } = req.body;
+
+    db.query('INSERT INTO report (username, issue) VAlUES ($1, $2) RETURNING caseid', [username, issue], (error, results) => {
         if (error) {
             throw error;
         }
+            let id = results.rows[0].caseid;
 
-        res.status(200).send(`Category with id: ${id} is deleted.`);
-    });
-})
+            res.status(200).send(` report generated added with ID: ${caseid}`);
+        }
+    );
+});
+
+
+
+
+
+
+
+
+
 
 module.exports = app;
