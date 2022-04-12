@@ -10,12 +10,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
 
 
-<<<<<<< HEAD
 // retrieve single user from users table
-=======
-
-// retrieve single user info from username
->>>>>>> 81a366c5cf03ed7be28059d2891c9ec94356d3aa
 // http://localhost:4000/users/userByName/username
 app.get("/userByName/:username", (req, res) => {
     const username = req.params.username;
@@ -102,13 +97,8 @@ app.put('/updateUser/:userid', (req, res) => {
 //http://localhost:4000/users/deleteUser/username
 app.delete('/deleteUser/:username', (req, res) => {
 
-<<<<<<< HEAD
-
-    let username = req.params.username;
-=======
     let username = req.params.username;
     
->>>>>>> 81a366c5cf03ed7be28059d2891c9ec94356d3aa
     db.query("DELETE FROM users WHERE username=$1", [username], (error, results) => {
         if (error) {
             throw error;
