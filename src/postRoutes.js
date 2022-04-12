@@ -13,21 +13,22 @@ app.use(cors());
 
 
 // get all posts
+
 // http://localhost:4000/posts/getAllPosts
 app.get("/getAllPosts", (req, res) => {
-
-    db.query('SELECT * FROM posts', (error, results) => {
-        if (error) {
-            throw error;
-        }
-        if (results.rowCount > 0) {
-            res.status(200).json(results.rows);
-        } else {
-            //no users found
-            res.status(200).json(null);
-        }
+    db.query('SELECT * FROM posts', (error, results ) => {
+        if (error ) {
+        throw error 
+    }
+    if(results.rowCount > 0) {
+        res.status(200).json(results.rows);
+    } else {
+        res.status(200).send(null);
+    }
     });
-})
+});
+
+
 // retrieve single post from posts table
 // http://localhost:4000/posts/PostByid/id
 app.get("/PostByid/:postid", (req, res) => {
@@ -69,16 +70,19 @@ app.post('/newPost', (req, res) => {
     );
 })
 
-//updates user information based on form data
+
+//updates post information based on form data
 // http://localhost:4000/posts/updatePost/postid
 app.put('/updatePost/:postid', (req, res) => {
 
     let postid = req.params.postid;
 
-    db.query("SELECT * FROM posts WHERE postid=$1", [postid], (error, results) => {
+    db.query("UPDATE posts SET posttext=$1 WHERE postid=$2",
+        [req.posttext, postid], (error, results) => {
         if (error) {
             throw error;
         }
+
 
         let prevInfo = {};
 
@@ -98,6 +102,11 @@ app.put('/updatePost/:postid', (req, res) => {
     })
 })
 
+        res.status(200).end();
+    });
+})
+
+//delete a post and remove reference from users
 // http://localhost:4000/posts/deletePost/id
 app.delete('/deletePost/:postid', (req, res) => {
 
@@ -109,13 +118,9 @@ app.delete('/deletePost/:postid', (req, res) => {
             throw error;
         }
 
-        db.query("DELETE FROM posts WHERE postid=$1", [postid], (error, results) => {
-            if (error) {
-                throw error;
-            }
 
-            res.status(200).send(`User id: ${postid} deleted.`);
-        });
+        res.status(200).send(`Post with post id: ${postid} deleted.`);
+
     });
 })
 
