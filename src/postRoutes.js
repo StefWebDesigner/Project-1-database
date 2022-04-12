@@ -14,15 +14,34 @@ app.use(cors());
 
 // get all posts
 app.get('/', (req, res) => {
-    db.query('SELECT * FROM posts', (error, result ) => {
+    db.query('SELECT * FROM posts', (error, results ) => {
         if (error ) {
         throw error 
-    } else 
-    res.status(200).json(results);
-    })
-})
+    }
+    if(results.rowCount > 0) {
+        res.status(200).json(results.rows);
+    } else {
+        res.status(200).send(null);
+    }
+    });
+});
+
+app.get('/withUserInfo', (req,res)=>{
+
+    db.query('SELECT p.posttext, p.postdate, p.likes, u.username FROM posts p LEFT JOIN users u ON p.authorid=u.userid', (error, results) => {
+        if (error) {
+            throw error
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            res.status(200).send(null);
+        }
+    });
+});
+
 // retrieve single post from posts table
-app.get("/userByPostid/:postid", (req, res) => {
+app.get("/postById/:postid", (req, res) => {
     const postid = req.params.postid;
 
     db.query('SELECT * FROM posts WHERE postid=$1', [postid], (error, results) => {
@@ -63,51 +82,65 @@ app.post('/newPost', (req, res) => {
     });
 })
 
-//updates user information based on form data
+//updates post content
 app.put('/updatePost/:postid', (req, res) => {
 
     let postid = req.params.postid;
 
-    db.query("SELECT * FROM posts WHERE postid=$1", [postid], (error, results) => {
+    db.query("UPDATE posts SET posttext=$1 WHERE postid=$2",
+        [req.posttext, postid], (error, results) => {
         if (error) {
             throw error;
         }
-
-        let prevInfo = {};
-
-        if (results.rowCount > 0) {
-            prevInfo = results.rows[0];
-        }
-
-        let post = { ...prevInfo, ...req.body };
-        // insert into posts(postid, authorid, posttext, postdate, likes) 
-
-        db.query("UPDATE users SET firstname=$1, lastname=$2, username=$3, password=$4, email=$5, city=$6, state=$7 WHERE userid=$8",
-            [post.postid, post.authorid, post.posttext, post.postdate, post.likes], (error, results) => {
-            if (error) {
-                throw error;
-            }
-            res.status(200).send(`Update successful for user with id: ${userid}`);
-        });
-    })
+        res.status(200).end();
+    });
 })
 
+//delete a post and remove reference from users
 app.delete('/deletePost/:postid', (req, res) => {
 
     let postid = req.params.postid;
 
 
-    db.query("DELETE FROM posts WHERE postid=$1", [postid], (error, results) => {
+    //delete post from post table
+    db.query("DELETE FROM posts WHERE postid=$1 RETURNING authorid", [postid], (error, results) => {
         if (error) {
             throw error;
         }
 
-        db.query("DELETE FROM posts WHERE postid=$1", [postid], (error, results) => {
-            if (error) {
+        let userid = results.rows[0].authorid;
+
+        //get post array for user
+        db.query("SELECT post FROM users WHERE userid=$1", [userid], (error, results)=>{
+
+            if(error){
                 throw error;
             }
 
-            res.status(200).send(`User id: ${postid} deleted.`);
+            let posts = results.rows[0].post;
+            let index = -1;
+
+            //find index of post in post array
+            for(let i=0; i<posts.length; i++){
+                if(posts[i] == postid){
+                    index = i;
+                }
+            }
+
+            //remove post from post list
+            if(index > -1){
+                posts.splice(index, 1);
+
+                //update post list for user so deleted post is not referenced
+                db.query("UPDATE users SET post=$1 WHERE userid=$2", [posts, userid], (error, results) => {
+                    if (error) {
+                        throw error;
+                    }
+                    res.status(200).end();
+                });
+            }  else {
+                res.status(200);
+            }
         });
     });
 })
@@ -131,9 +164,5 @@ app.post('/initchat', (req, res) => {
         });
 
 });
-
-// app.listen(port, ()=>{
-//     console.log(`Listening on port ${port}`);
-// });
 
 module.exports = app;
