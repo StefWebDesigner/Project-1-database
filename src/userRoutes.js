@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('./dbconnect'); //create file called dbconnect.js with your database pool info when ready
+const db = require('./dbconnect'); 
 const cors = require('cors');
 
 const app = express();
@@ -9,24 +9,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
 
-//user
-        //update user setting
-        //post content into their personal group of code
-        //methods to share user
 
-//admin Attempts
-    //to get all user
-    //to creat content in the tips section
-    //be able to take postID and send it over to a genre
-    //create genres with an icon
-
-
-//category
-    //create tips through an input field & post it into a certain section
-//
-
-
-//retrieve single user info from username
+// retrieve single user info from username
 // http://localhost:4000/users/userByName/username
 app.get("/userByName/:username", (req, res) => {
     const username = req.params.username;
@@ -46,7 +30,7 @@ app.get("/userByName/:username", (req, res) => {
 })
 
 
-//retrieve single user info from username
+//retrieve all users info from username
 app.get("/allUsers", (req, res) => {
 
     db.query('SELECT * FROM users', (error, results) => {
@@ -66,13 +50,10 @@ app.get("/allUsers", (req, res) => {
 //insert new user into database
 // http://localhost:4000/users/newUser
 app.post('/newUser', (req, res) => {
-
-    //role type -- let them choose their designation on form but get approval from an admin before sending to db?
     let { firstname, lastname, username, password, city, state, email, account } = req.body;
 
     db.query('INSERT INTO users (firstname, lastname, username, password, city, state, email, account) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING userid',
         [firstname, lastname, username, password, city, state, email, account], (error, results) => {
-
 
         if (error) {
             throw error;
