@@ -31,7 +31,7 @@ app.get("/getAllPosts", (req, res) => {
 //http://localhost:4000/posts/withUserInfo
 app.get('/withUserInfo', (req,res)=>{
 
-    db.query('SELECT p.postid, p.posttext, p.postdate, p.likes, u.username FROM posts p LEFT JOIN users u ON p.authorid=u.userid', (error, results) => {
+    db.query('SELECT p.postid, p.posttext, p.postdate, p.likes, u.username FROM posts p LEFT JOIN users u ON p.authorid=u.userid ORDER BY postdate DESC', (error, results) => {
         if (error) {
             throw error
         }
@@ -76,10 +76,16 @@ app.post('/newPost', (req, res) => {
             throw error;
         }
 
-        let id = results.rows[0].postid;
+            let postid = results.rows[0].postid;
 
-        db.query('UPDATE users SET post= array_append(post, $1) WHERE userid=$2', [id, authorid], (error, results) => {
-            res.status(200).end();
+            db.query('UPDATE users SET post= array_append(post, $1) WHERE userid=$2', [postid, authorid], (error, results) => {
+                
+                if(error){
+                    throw error;
+                }
+
+                res.status(200).json(postid);
+            });
         });
     });
 })
@@ -92,12 +98,27 @@ app.put('/updatePost/:postid', (req, res) => {
     let postid = req.params.postid;
 
     db.query("UPDATE posts SET posttext=$1 WHERE postid=$2",
-        [req.posttext, postid], (error, results) => {
-        if (error) {
-            throw error;
-        }
-        res.status(200).end();
-    });
+        [req.body.posttext, postid], (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.status(200).end();
+        });
+})
+
+//updates number of likes
+// http://localhost:4000/posts/likes/postid
+app.put('/likes/:postid', (req, res) => {
+
+    let postid = req.params.postid;
+
+    db.query("UPDATE posts SET likes=$1 WHERE postid=$2",
+        [req.body.likes, postid], (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.status(200).end();
+        });
 })
 
 //delete a post and remove reference from users
