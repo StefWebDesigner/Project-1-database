@@ -43,7 +43,7 @@ app.get("/categoryById/:id", (req, res) => {
 });
 
 
-
+// http://localhost:4000/categories/newtips
 app.post('/newtips', (req, res) => {
 
     let { tiptitle, tipbody, tipgenre } = req.body;
@@ -61,7 +61,27 @@ app.post('/newtips', (req, res) => {
         }
     );
 });
+// get reports
+// http://localhost:4000/categories/retrieveReport/caseid
+app.get("/retrieveReport/:caseid", (req, res) => {
+    const caseid = req.params.caseid;
 
+    db.query('SELECT * FROM report WHERE caseid=$1', [caseid], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            //id  found
+            res.status(200).json(results.rows);
+        } else {
+            //no category found
+            res.status(200).json(null);
+        }
+    });
+});
+
+
+// http://localhost:4000/categories/makereport
 app.post('/makereport', (req, res) => {
     let { username, issue } = req.body;
 
@@ -77,10 +97,59 @@ app.post('/makereport', (req, res) => {
 });
 
 
+app.delete('/deleteCategory/:id', (req, res) => {
 
+    let caseid = req.params.caseid;
+    db.query("DELETE FROM report WHERE caseid=$1", [caseid], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.status(200).send(`Report with caseid: ${caseid} is removed from reports list.`);
 
+    });
+})
 
+//http://localhost:4000/categories/updateCategory/id
+app.put('/updateCategory/:id', (req, res) => {
 
+    let id = req.params.id;
+
+    db.query("SELECT * FROM category WHERE id=$1", [id], (error, results) => {
+        if (error) {
+            throw error;
+        }
+
+        let prevInfo = {};
+
+        if (results.rowCount > 0) {
+            prevInfo = results.rows[0];
+        }
+
+        let category = { ...prevInfo, ...req.body };
+// needs to be corrected
+        db.query("UPDATE category SET title=$1, mainbodycontent=$2, genreCategory=$3 WHERE id=$4",
+            [category.title, category.mainbodycontent, category.genreCategory, post.likes, post.postid], (error, results) => {
+                if (error) {
+                    throw error;
+                }
+                res.status(200).send(`Update successful for post with postid: ${postid}`);
+            });
+    })
+})
+
+// to delete a category
+//http://localhost:4000/categories/deleteCategory/id
+app.delete('/deleteCategory/:id', (req, res) => {
+
+    let id = req.params.id;
+    db.query("DELETE FROM category WHERE id=$1", [id], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.status(200).send(`Category with id: ${id} is succesfully deleted.`);
+
+    });
+})
 
 
 
