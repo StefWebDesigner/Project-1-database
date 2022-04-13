@@ -4,7 +4,7 @@ create type genre as enum('beginner', 'intermediatetip', 'advancetips', 'javatip
 
 create type accountType as enum('associate', 'admin');
 
-CREATE TABLE admin(
+CREATE TABLE users(
   userid serial primary key,
   firstname varchar(30),
   lastname varchar(30),
@@ -20,7 +20,7 @@ CREATE TABLE admin(
 
 CREATE TABLE posts(
     postid serial primary key,
-    authorid int references users(userid),
+    authorid int ,
     posttext text,
     postdate timestamp,
     image varchar(70),

@@ -2,15 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./dbconnect'); //create file called dbconnect.js with your database pool info when ready
 const cors = require('cors');
-const axios = require("axios");
 
-const port = 4000;
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
-
 
 //user
         //update user setting
@@ -30,6 +27,7 @@ app.use(cors());
 
 
 //retrieve single user info from username
+// http://localhost:4000/users/userByName/username
 app.get("/userByName/:username", (req, res) => {
     const username = req.params.username;
 
@@ -47,6 +45,7 @@ app.get("/userByName/:username", (req, res) => {
     });
 })
 
+
 //retrieve single user info from username
 app.get("/allUsers", (req, res) => {
 
@@ -63,9 +62,10 @@ app.get("/allUsers", (req, res) => {
     });
 })
 
-//insert new user into database
-app.post('/newUser', (req, res) => {
 
+//insert new user into database
+// http://localhost:4000/users/newUser
+app.post('/newUser', (req, res) => {
 
     //role type -- let them choose their designation on form but get approval from an admin before sending to db?
     let { firstname, lastname, username, password, city, state, email, account } = req.body;
@@ -73,13 +73,13 @@ app.post('/newUser', (req, res) => {
     db.query('INSERT INTO users (firstname, lastname, username, password, city, state, email, account) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING userid',
         [firstname, lastname, username, password, city, state, email, account], (error, results) => {
 
+
         if (error) {
             throw error;
         }
 
-        let id = results.rows[0].userid;
-
-        res.status(200).send({userid:id});
+        let userid = results.rows[0].userid;
+        res.status(200).send({userid});
         }
     );
 })
@@ -112,15 +112,18 @@ app.put('/updateUser/:userid', (req, res) => {
     })
 })
 
-app.delete('/deleteUser/:userid', (req, res) => {
+// delete user by userId
+//http://localhost:4000/users/deleteUser/username
+app.delete('/deleteUser/:username', (req, res) => {
 
-    let userid = req.params.userid;
-
-    db.query("DELETE FROM users WHERE userid=$1", [userid], (error, results) => {
+    let username = req.params.username;
+    
+    db.query("DELETE FROM users WHERE username=$1", [username], (error, results) => {
         if (error) {
             throw error;
-        }
-        res.status(200).send(`User id: ${userid} deleted.`);
+         }
+
+        res.status(200).send(`${username}`);
     });
 })
 
