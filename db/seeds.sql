@@ -51,17 +51,31 @@ values(24, 'New cocktail drink in town', 'a cocktail called pain killer is so go
 
 
 insert into category (id, categoryid, title, mainbodycontent, genrecategory)
-values (1, 1,'Java tips', 'Use these techniques', 'Java');
+values (1, 1,'Java tips', 'In our article today, we will look at how you use polyphorism', 'Java');
 insert into category (id, categoryid, title, mainbodycontent, genrecategory)
-values (2, 1,'Java tips Continued', 'Hello World', 'Java');
+values (2, 1,'Java tips Continued', 'This mini post has several demos that will aid you in becoming a pro in Java', 'Java');
 insert into category (id, categoryid, title, mainbodycontent, genrecategory)
-values (3, 2,'React for beginners', 'Hello World', 'React');
+values (3, 2,'React for beginners', 'Today, we are working on a Hello World project to make React less scary.', 'React');
 insert into category (id, categoryid, title, mainbodycontent, genrecategory)
-values (4, 2,'React hooks', 'using all effects', 'React');
+values (4, 2,'React hooks', 'using all hookes...when to use them and how to use them. All here with this article', 'React');
 insert into category (id, categoryid, title, mainbodycontent, genrecategory)
 values (5, 3,'Beginner to coding', 'Hello World', 'Beginner');
 insert into category (id, categoryid, title, mainbodycontent, genrecategory)
 values (6, 3,'Start with HTML ', 'HTML for learners', 'Beginner');
+insert into category (id, categoryid, title, mainbodycontent, genrecategory)
+values (7, 4,'Typescript', 'Getting started with typescript by creating classes...lets start here...', 'Intermidate');
+insert into category (id, categoryid, title, mainbodycontent, genrecategory)
+values (8, 4,'Using Redux Today', 'The pros and cons of using redux and how to incorperate in your next projec.', 'Intermidate');
+insert into category (id, categoryid, title, mainbodycontent, genrecategory)
+values (9, 5,'Way to expand you programming skills', 'To improve you program skills, you need to experiement with some of these concepts...', 'Advanced');
+insert into category (id, categoryid, title, mainbodycontent, genrecategory)
+values (10, 5,'How to build a full stack project ', 'To build a full stack site, you need to make a database and website. Follow for more...', 'Advanced');
+
+
+
+
+
+
 
 
 

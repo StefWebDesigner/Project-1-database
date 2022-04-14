@@ -63,6 +63,38 @@ app.get("/getcontentbycategoryid/:categoryid", (req, res) => {
     });
 });
 
+// http://localhost:4000/categories/totaltips
+app.get('/totaltips/', (req, res) => {
+
+    db.query("SELECT COUNT(id) FROM category", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+});
+
+// app.get('/totaltips/', (req, res) => {
+//
+//     db.query("SELECT COUNT(account) FROM users WHERE account = 'admin'", (error, results) => {
+//         if (error) {
+//             throw error;
+//         }
+//         if (results.rowCount > 0) {
+//             res.status(200).json(results.rows);
+//         } else {
+//             //no users found
+//             res.status(200).json(null);
+//         }
+//     });
+// });
+
+
 
 
 
