@@ -27,7 +27,7 @@ CREATE TABLE posts(
     likes int
  );
 
-
+-- the original
 create table category (
       id int primary key,
       title text,
@@ -35,6 +35,14 @@ create table category (
       genreCategory varchar(50)
 );
 
+-- the new change
+create table category (
+      id int primary key,
+	   categoryid int,
+      title text,
+      mainbodycontent text,
+      genreCategory varchar(50)
+);
 
 create table tips (
 	tipid serial primary key,
