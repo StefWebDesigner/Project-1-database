@@ -79,20 +79,87 @@ app.get('/totaltips/', (req, res) => {
     });
 });
 
-// app.get('/totaltips/', (req, res) => {
-//
-//     db.query("SELECT COUNT(account) FROM users WHERE account = 'admin'", (error, results) => {
-//         if (error) {
-//             throw error;
-//         }
-//         if (results.rowCount > 0) {
-//             res.status(200).json(results.rows);
-//         } else {
-//             //no users found
-//             res.status(200).json(null);
-//         }
-//     });
-// });
+// http://localhost:4000/categories/totaltips/java
+app.get('/totaltips/java', (req, res) => {
+
+    db.query("SELECT COUNT(id) FROM category where categoryid=1", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+});
+
+// http://localhost:4000/categories/totaltips/react
+app.get('/totaltips/react', (req, res) => {
+
+    db.query("SELECT COUNT(id) FROM category where categoryid=2", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+});
+
+// http://localhost:4000/categories/totaltips/beginner
+app.get('/totaltips/beginner', (req, res) => {
+
+    db.query("SELECT COUNT(id) FROM category where categoryid=3", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+});
+
+// http://localhost:4000/categories/totaltips/intermidate
+app.get('/totaltips/intermidate', (req, res) => {
+
+    db.query("SELECT COUNT(id) FROM category where categoryid=4", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+});
+
+// http://localhost:4000/categories/totaltips/advanced
+app.get('/totaltips/advanced', (req, res) => {
+
+    db.query("SELECT COUNT(id) FROM category where categoryid=4", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+});
+
+
 
 
 
