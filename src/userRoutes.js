@@ -69,28 +69,15 @@ app.post('/newUser', (req, res) => {
 app.put('/updateUser/:userid', (req, res) => {
 
     let userid = req.params.userid;
+    let user = req.body;
 
-    db.query("SELECT * FROM users WHERE userid=$1", [userid], (error, results) => {
+    db.query("UPDATE users SET firstname=$1, lastname=$2, username=$3, password=$4, email=$5, city=$6, state=$7, account=$8 WHERE userid=$9",
+        [user.firstname, user.lastname, user.username, user.password, user.email, user.city, user.state, user.account, userid], (error, results) => {
         if (error) {
             throw error;
         }
-
-        let prevInfo = {};
-
-        if (results.rowCount > 0) {
-            prevInfo = results.rows[0];
-        }
-
-        let user = { ...prevInfo, ...req.body };
-
-        db.query("UPDATE users SET firstname=$1, lastname=$2, username=$3, password=$4, email=$5, city=$6, state=$7 WHERE userid=$8",
-            [user.firstname, user.lastname, user.username, user.password, user.email, user.city, user.state, userid], (error, results) => {
-            if (error) {
-                throw error;
-            }
-            res.status(200).send(`Update successful for user with id: ${userid}`);
-        });
-    })
+        res.status(200).send(`Update successful for user with id: ${userid}`);
+    });
 })
 
 // delete user by userId
