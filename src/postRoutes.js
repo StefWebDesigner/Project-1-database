@@ -31,7 +31,7 @@ app.get("/getAllPosts", (req, res) => {
 //http://localhost:4000/posts/withUserInfo
 app.get('/withUserInfo', (req,res)=>{
 
-    db.query('SELECT p.postid, p.posttext, p.postdate, p.likes, u.username FROM posts p LEFT JOIN users u ON p.authorid=u.userid ORDER BY postdate DESC', (error, results) => {
+    db.query('SELECT p.postid, p.posttext, p.postdate, p.likes, u.username, u.account FROM posts p LEFT JOIN users u ON p.authorid=u.userid ORDER BY postdate DESC', (error, results) => {
         if (error) {
             throw error
         }
@@ -76,16 +76,15 @@ app.post('/newPost', (req, res) => {
             throw error;
         }
 
-            let postid = results.rows[0].postid;
+        let postid = results.rows[0].postid;
 
-            db.query('UPDATE users SET post= array_append(post, $1) WHERE userid=$2', [postid, authorid], (error, results) => {
-                
-                if(error){
-                    throw error;
-                }
+        db.query('UPDATE users SET post= array_append(post, $1) WHERE userid=$2', [postid, authorid], (error, results) => {
+            
+            if(error){
+                throw error;
+            }
 
-                res.status(200).json(postid);
-            });
+            res.status(200).json(postid);
         });
     });
 // })
