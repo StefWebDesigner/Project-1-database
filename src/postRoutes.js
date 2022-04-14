@@ -87,7 +87,7 @@ app.post('/newPost', (req, res) => {
             res.status(200).json(postid);
         });
     });
-// })
+})
 
 //updates user information based on form data
 // http://localhost:4000/posts/updatePost/postid
