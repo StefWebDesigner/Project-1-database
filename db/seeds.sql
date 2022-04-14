@@ -50,6 +50,19 @@ insert into category(id, title, mainbodycontent, genreCategory)
 values(24, 'New cocktail drink in town', 'a cocktail called pain killer is so good  that I would love to have it  very often', 'Drink')
 
 
+insert into category (id, categoryid, title, mainbodycontent, genrecategory)
+values (1, 1,'Java tips', 'Use these techniques', 'Java');
+insert into category (id, categoryid, title, mainbodycontent, genrecategory)
+values (2, 1,'Java tips Continued', 'Hello World', 'Java');
+insert into category (id, categoryid, title, mainbodycontent, genrecategory)
+values (3, 2,'React for beginners', 'Hello World', 'React');
+insert into category (id, categoryid, title, mainbodycontent, genrecategory)
+values (4, 2,'React hooks', 'using all effects', 'React');
+insert into category (id, categoryid, title, mainbodycontent, genrecategory)
+values (5, 3,'Beginner to coding', 'Hello World', 'Beginner');
+insert into category (id, categoryid, title, mainbodycontent, genrecategory)
+values (6, 3,'Start with HTML ', 'HTML for learners', 'Beginner');
+
 
 
  insert into tips (tiptitle, tipbody, tipgenre)

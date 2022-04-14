@@ -42,14 +42,39 @@ app.get("/categoryById/:id", (req, res) => {
     });
 });
 
+//STEFAN'S ATTEMPT ---- This is the offical one
+// get category by id
+// http://localhost:4000/categories/getcontentbycategoryid/:1
+app.get("/getcontentbycategoryid/:categoryid", (req, res) => {
 
-<<<<<<< HEAD
+    const categoryid = req.params.categoryid;
+
+    db.query('SELECT * FROM category WHERE categoryid=$1', [categoryid], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            //id  found
+            res.status(200).json(results.rows);
+        } else {
+            //no category found
+            res.status(200).json(null);
+        }
+    });
+});
+
+
+
+
+
+
+
+
 //TO POST A CATEGORY
 
 //????
-=======
 // http://localhost:4000/categories/newtips
->>>>>>> 5d5e1108dcbcaff855416ee0c0742930517acbab
+
 app.post('/newtips', (req, res) => {
 
     let { tiptitle, tipbody, tipgenre } = req.body;
@@ -61,7 +86,7 @@ app.post('/newtips', (req, res) => {
                 throw error;
             }
 
-            let id = results.rows[0].tipid;
+            let tipid = results.rows[0].tipid;
 
             res.status(200).send(`tip content added with ID: ${tipid}`);
         }
@@ -103,8 +128,7 @@ app.post('/makereport', (req, res) => {
 });
 
 
-<<<<<<< HEAD
-=======
+
 app.delete('/deleteCategory/:id', (req, res) => {
 
     let caseid = req.params.caseid;
@@ -162,5 +186,5 @@ app.delete('/deleteCategory/:id', (req, res) => {
 
 
 
->>>>>>> 5d5e1108dcbcaff855416ee0c0742930517acbab
+
 module.exports = app;
