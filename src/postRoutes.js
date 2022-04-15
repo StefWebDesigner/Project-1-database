@@ -139,6 +139,7 @@ app.delete('/deletePost/:postid', (req, res) => {
         if (error) {
             throw error;
         }
+      
         let userid = results.rows[0].authorid;
 
         //get post array for user
@@ -152,13 +153,17 @@ app.delete('/deletePost/:postid', (req, res) => {
             let posts = results.rows[0].post;
             let index = -1;
 
+
             //find index of post in post array
+      
+    
+
+
             for (let i = 0; i < posts.length; i++) {
                 if (posts[i] == postid) {
                     index = i;
                 }
             }
-
             //remove post from post list
             if (index > -1) {
                 posts.splice(index, 1);
@@ -195,5 +200,26 @@ app.post('/initchat', (req, res) => {
     });
 
 });
+
+// http://localhost:4000/posts/maxlikepost
+app.get('/maxlikepost/', (req, res) => {
+
+    db.query("SELECT MAX(likes) FROM posts", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            //no users found
+            res.status(200).json(null);
+        }
+    });
+});
+
+
+
+
+
 
 module.exports = app;
