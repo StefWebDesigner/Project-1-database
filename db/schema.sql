@@ -2,7 +2,9 @@ CREATE DATABASE project1;
 
 create type genre as enum('beginner', 'intermediatetip', 'advancetips', 'javatip', 'reacttip', 'jstip', 'pythontip');
 
-create type accountType as enum('associate', 'admin');
+create type accountType as enum('associate', 'admin', 'trainer', 'alumni');
+--alter type accountType add value 'trainer';
+--alter type accountType add value 'alumni';
 
 CREATE TABLE users(
   userid serial primary key,
