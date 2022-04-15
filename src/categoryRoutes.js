@@ -42,6 +42,72 @@ app.get("/categoryById/:id", (req, res) => {
     });
 });
 
+// post new category
+// http://localhost:4000/categories/newCategory
+app.post('/newCategory', (req, res) => {
+    let { id, categoryid, title, mainbodycontent, genreCategory } = req.body;
+
+    db.query('INSERT INTO category (id, categoryid, title, mainbodycontent, genreCategory) VALUES ($1, $2, $3, $4, $5) RETURNING categoryid',
+        [id, categoryid, title, mainbodycontent, genreCategory], (error, results) => {
+
+        if (error) {
+            throw error;
+        }
+
+        let id = results.rows[0].categoryid;
+        res.status(200).send({id});
+        }
+    );
+})
+// to retrieve all reports
+//// http://localhost:4000/categories/getAllReports
+app.get('/getAllReports', (req, res) => {
+    db.query('SELECT * FROM report', (error, results) => {
+        if (error) {
+            throw error
+        } else
+            res.status(200).json(results.rows);
+    })
+});
+
+// get report by reportid
+// http://localhost:4000/categories/reportByReportid/id
+app.get("/reportByReportid/:reportid", (req, res) => {
+    const reportid = req.params.reportid;
+
+    db.query('SELECT * FROM report WHERE reportid=$1', [reportid], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            res.status(200).json(results.rows);
+        } else {
+            
+            res.status(200).json(null);
+        }
+    });
+});
+
+
+// Make a new report
+// http://localhost:4000/categories/newReport
+app.post('/newReport', (req, res) => {
+    let { reportid, username, issue } = req.body;
+
+    db.query('INSERT INTO report (reportid, username, issue) VALUES ($1, $2, $3) RETURNING reportid',
+        [ reportid, username, issue], (error, results) => {
+
+        if (error) {
+            throw error;
+        }
+
+        let caseid = results.rows[0].reportid;
+        res.status(200).send({caseid});
+        }
+    );
+})
+
+
 //STEFAN'S ATTEMPT ---- This is the offical one
 // get category by id
 // http://localhost:4000/categories/getcontentbycategoryid/:1

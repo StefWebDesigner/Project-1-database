@@ -81,4 +81,10 @@ values (10, 5,'How to build a full stack project ', 'To build a full stack site,
 
  insert into tips (tiptitle, tipbody, tipgenre)
  values('title example', 'fact to java', 'Java');
- 
+
+
+--  report seeds
+
+
+INSERT INTO report (caseid, reportid, username, issue)
+values(1, 1, lukeshaw, "The link to java  tutorial is not functional")

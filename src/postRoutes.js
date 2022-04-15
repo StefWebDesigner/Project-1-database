@@ -31,7 +31,7 @@ app.get("/getAllPosts", (req, res) => {
 //http://localhost:4000/posts/withUserInfo
 app.get('/withUserInfo', (req,res)=>{
 
-    db.query('SELECT p.postid, p.posttext, p.postdate, p.likes, u.username FROM posts p LEFT JOIN users u ON p.authorid=u.userid ORDER BY postdate DESC', (error, results) => {
+    db.query('SELECT p.postid, p.posttext, p.postdate, p.likes, u.username FROM posts p LEFT JOIN users u ON p.authorid=u.userid', (error, results) => {
         if (error) {
             throw error
         }
@@ -63,6 +63,26 @@ app.get("/PostByid/:postid", (req, res) => {
 })
 
 
+// http://localhost:4000/posts/PostByUser/authorid
+app.get("/PostByUser/:authorid", (req, res) => {
+    const authorid = req.params.authorid;
+
+    db.query('SELECT * FROM posts WHERE authorid=$1', [authorid], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            //postid found
+            res.status(200).json(results.rows[0]);
+        } else {
+            //no post found
+            res.status(200).json(null);
+        }
+    });
+})
+
+
+
 //add new post into database
 // http://localhost:4000/posts/newPost
 app.post('/newPost', (req, res) => {
@@ -76,19 +96,13 @@ app.post('/newPost', (req, res) => {
             throw error;
         }
 
-            let postid = results.rows[0].postid;
+        let id = results.rows[0].postid;
 
-            db.query('UPDATE users SET post= array_append(post, $1) WHERE userid=$2', [postid, authorid], (error, results) => {
-                
-                if(error){
-                    throw error;
-                }
-
-                res.status(200).json(postid);
-            });
+        db.query('UPDATE users SET post= array_append(post, $1) WHERE userid=$2', [id, authorid], (error, results) => {
+            res.status(200).end();
         });
     });
-// })
+})
 
 //updates user information based on form data
 // http://localhost:4000/posts/updatePost/postid
@@ -98,27 +112,12 @@ app.put('/updatePost/:postid', (req, res) => {
     let postid = req.params.postid;
 
     db.query("UPDATE posts SET posttext=$1 WHERE postid=$2",
-        [req.body.posttext, postid], (error, results) => {
-            if (error) {
-                throw error;
-            }
-            res.status(200).end();
-        });
-})
-
-//updates number of likes
-// http://localhost:4000/posts/likes/postid
-app.put('/likes/:postid', (req, res) => {
-
-    let postid = req.params.postid;
-
-    db.query("UPDATE posts SET likes=$1 WHERE postid=$2",
-        [req.body.likes, postid], (error, results) => {
-            if (error) {
-                throw error;
-            }
-            res.status(200).end();
-        });
+        [req.posttext, postid], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.status(200).end();
+    });
 })
 
 //delete a post and remove reference from users

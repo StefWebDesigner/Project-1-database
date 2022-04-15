@@ -38,7 +38,7 @@ create table category (
 -- the new change
 create table category (
       id int primary key,
-	   categoryid int,
+	categoryid int,
       title text,
       mainbodycontent text,
       genreCategory varchar(50)
