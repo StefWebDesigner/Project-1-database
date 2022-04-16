@@ -29,6 +29,26 @@ app.get("/userByName/:username", (req, res) => {
     });
 })
 
+//TO GET LOCATION
+// http://localhost:4000/users/userByLocation/location
+app.get("/userByLocation/:location", (req, res) => {
+    const location = req.params.location;
+
+    db.query('SELECT * FROM users WHERE city=$1', [location], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            //username found
+            res.status(200).json(results.rows[0]);
+        } else {
+            //no user found
+            res.status(200).json(null);
+        }
+    });
+})
+
+
 
 //retrieve all users info from username
 app.get("/allUsers", (req, res) => {
@@ -71,8 +91,8 @@ app.put('/updateUser/:userid', (req, res) => {
     let userid = req.params.userid;
     let user = req.body;
 
-    db.query("UPDATE users SET firstname=$1, lastname=$2, username=$3, password=$4, email=$5, city=$6, state=$7, account=$8 WHERE userid=$9",
-        [user.firstname, user.lastname, user.username, user.password, user.email, user.city, user.state, user.account, userid], (error, results) => {
+    db.query("UPDATE users SET firstname=$1, lastname=$2, username=$3, password=$4, email=$5, city=$6, state=$7, account=$8, pic=$9 WHERE userid=$10",
+        [user.firstname, user.lastname, user.username, user.password, user.email, user.city, user.state, user.account, user.pic, userid], (error, results) => {
         if (error) {
             throw error;
         }
