@@ -12,6 +12,8 @@ app.use(cors());
 
 // retrieve single user info from username
 // http://localhost:4000/users/userByName/username
+
+//GET USER
 app.get("/userByName/:username", (req, res) => {
     const username = req.params.username;
 
@@ -21,10 +23,10 @@ app.get("/userByName/:username", (req, res) => {
         }
         if (results.rowCount > 0) {
             //username found
-            res.status(200).json(results.rows);
+            res.status(200).json(results.rows[0]);
         } else {
             //no user found
-            res.status(200).json([]);
+            res.status(200).json(null);
         }
     });
 })

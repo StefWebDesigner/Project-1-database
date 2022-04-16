@@ -59,6 +59,7 @@ app.post('/newCategory', (req, res) => {
         }
     );
 })
+
 // to retrieve all reports
 //// http://localhost:4000/categories/getAllReports
 app.get('/getAllReports', (req, res) => {
@@ -87,6 +88,26 @@ app.get("/reportByReportid/:reportid", (req, res) => {
         }
     });
 });
+
+//THIS IS THE NEWEST WAY TO CREATE A POST
+app.post('/createTip', (req, res) => {
+    let { categoryid, title, mainbodycontent, genrecategory } = req.body;
+
+    db.query('INSERT INTO category (categoryid, title, mainbodycontent, genrecategory) VALUES ($1, $2, $3, $4) RETURNING id',
+        [ categoryid, title, mainbodycontent, genrecategory], (error, results) => {
+
+            if (error) {
+                throw error;
+            }
+
+            let id = results.rows[0].id;
+            res.status(200).send({id});
+        }
+    );
+})
+
+// insert into category (id, categoryid, title, mainbodycontent, genrecategory)
+// values (1, 1,'Java tips', 'In our article today, we will look at how you use polyphorism', 'Java');
 
 
 // Make a new report

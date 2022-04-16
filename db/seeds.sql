@@ -72,19 +72,16 @@ insert into category (id, categoryid, title, mainbodycontent, genrecategory)
 values (10, 5,'How to build a full stack project ', 'To build a full stack site, you need to make a database and website. Follow for more...', 'Advanced');
 
 
-
-
-
-
-
-
-
  insert into tips (tiptitle, tipbody, tipgenre)
  values('title example', 'fact to java', 'Java');
 
 
 --  report seeds
-
-
-INSERT INTO report (caseid, reportid, username, issue)
-values(1, 1, lukeshaw, "The link to java  tutorial is not functional")
+insert into report (reportid, username, issue)
+values (1, 'lukeshaw', 'link to java tutorial didnt work');
+insert into report (reportid, username, issue)
+values (4, 'davidsdegea', 'Made an inappropriate comment');
+insert into report (reportid, username, issue)
+values (5, 'CR7junior', 'Made a false statement...Messi is better');
+insert into report (reportid, username, issue)
+values (7, 'pulisic22', 'They were rude in a comment');

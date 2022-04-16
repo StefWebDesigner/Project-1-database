@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="bc001a99-039a-4585-bc85-7898e341cfd5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/seeds.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db/seeds.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/categoryRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/categoryRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/userRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/userRoutes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,12 +29,11 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/dbconnect.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/db/seeds.sql" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/userRoutes.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/postRoutes.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/categoryRoutes.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/db/schema.sql" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/db/seeds.sql" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/userRoutes.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -68,6 +70,8 @@
       <workItem from="1650019608781" duration="9328000" />
       <workItem from="1650051075172" duration="104000" />
       <workItem from="1650052395103" duration="2300000" />
+      <workItem from="1650121480458" duration="9220000" />
+      <workItem from="1650138010622" duration="2526000" />
     </task>
     <servers />
   </component>
