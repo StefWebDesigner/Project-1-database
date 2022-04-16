@@ -16,7 +16,7 @@ CREATE TABLE users(
   state varchar(30),
   email varchar(50),
   account accountType,
-  pic varchar(30)
+  pic varchar(120)
 );
 
 
@@ -25,7 +25,7 @@ CREATE TABLE posts(
     authorid int ,
     posttext text,
     postdate timestamp,
-    image varchar(70),
+    image varchar(100),
     likes int
  );
 
