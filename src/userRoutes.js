@@ -21,6 +21,25 @@ app.get("/userByName/:username", (req, res) => {
         }
         if (results.rowCount > 0) {
             //username found
+            res.status(200).json(results.rows);
+        } else {
+            //no user found
+            res.status(200).json([]);
+        }
+    });
+})
+
+//TO GET LOCATION
+// http://localhost:4000/users/userByLocation/location
+app.get("/userByLocation/:location", (req, res) => {
+    const location = req.params.location;
+
+    db.query('SELECT * FROM users WHERE city=$1', [location], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            //username found
             res.status(200).json(results.rows[0]);
         } else {
             //no user found
@@ -28,6 +47,7 @@ app.get("/userByName/:username", (req, res) => {
         }
     });
 })
+
 
 
 //retrieve all users info from username
