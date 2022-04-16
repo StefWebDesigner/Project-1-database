@@ -16,7 +16,7 @@ CREATE TABLE users(
   state varchar(30),
   email varchar(50),
   account accountType,
-  post int[]
+  pic varchar(30)
 );
 
 

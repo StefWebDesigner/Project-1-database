@@ -31,7 +31,7 @@ app.get("/getAllPosts", (req, res) => {
 //http://localhost:4000/posts/withUserInfo
 app.get('/withUserInfo', (req,res)=>{
 
-    db.query('SELECT p.postid, p.posttext, p.postdate, p.likes, u.username, u.account FROM posts p LEFT JOIN users u ON p.authorid=u.userid ORDER BY postdate DESC', (error, results) => {
+    db.query('SELECT p.postid, p.posttext, p.postdate, p.likes, u.username, u.account, u.pic FROM posts p LEFT JOIN users u ON p.authorid=u.userid ORDER BY postdate DESC', (error, results) => {
         if (error) {
             throw error
         }
@@ -78,14 +78,7 @@ app.post('/newPost', (req, res) => {
 
         let postid = results.rows[0].postid;
 
-        db.query('UPDATE users SET post= array_append(post, $1) WHERE userid=$2', [postid, authorid], (error, results) => {
-            
-            if(error){
-                throw error;
-            }
-
-            res.status(200).json(postid);
-        });
+        res.status(200).json(postid);
     });
 })
 
@@ -135,39 +128,7 @@ app.delete('/deletePost/:postid', (req, res) => {
         }
         let userid = results.rows[0].authorid;
 
-        //get post array for user
-        db.query("SELECT post FROM users WHERE userid=$1", [userid], (error, results) => {
-
-
-            if (error) {
-                throw error;
-            }
-
-            let posts = results.rows[0].post;
-            let index = -1;
-
-            //find index of post in post array
-            for (let i = 0; i < posts.length; i++) {
-                if (posts[i] == postid) {
-                    index = i;
-                }
-            }
-
-            //remove post from post list
-            if (index > -1) {
-                posts.splice(index, 1);
-
-                //update post list for user so deleted post is not referenced
-                db.query("UPDATE users SET post=$1 WHERE userid=$2", [posts, userid], (error, results) => {
-                    if (error) {
-                        throw error;
-                    }
-                    res.status(200).end();
-                });
-            } else {
-                res.status(200);
-            }
-        });
+        res.status(200).send(userid);
     });
 })
 
