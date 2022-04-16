@@ -21,20 +21,20 @@ insert into users(firstname,lastname, username, password, city, state, email, ac
  values ( 'Chirstian','Pulisic','pulisic22','password7', 'Hershey', 'Pennsylvania', 'captainAmerica@usa.com', 'associate' );
 
 -- posts seeds --
-insert into posts( authorid, posttext, postdate, image, likes) 
- values (1, 'Java stands out when it comes to OOP. ', now(), 'https://imgur.com/ZciDcYT', 256 );
+insert into posts( authorid, posttext, image, likes) 
+ values (1, 'Java stands out when it comes to OOP. ', 'https://imgur.com/ZciDcYT', 256 );
 
- insert into posts( authorid, posttext, postdate, image, likes) 
- values (2, 'React is one the popular JS front-end libraries.', now(), 'https://imgur.com/84FTa8k', 155 );
+ insert into posts( authorid, posttext, image, likes) 
+ values (2, 'React is one the popular JS front-end libraries.', 'https://imgur.com/84FTa8k', 155 );
 
- insert into posts( authorid, posttext, postdate, image, likes) 
- values (3, 'JS can do both front-end and back-end jobs.', now(), 'https://imgur.com/37o8AdA', 388 );
+ insert into posts( authorid, posttext,  image, likes) 
+ values (3, 'JS can do both front-end and back-end jobs.', 'https://imgur.com/37o8AdA', 388 );
 
- insert into posts( authorid, posttext, postdate, image, likes) 
- values (4, 'Typescript is the super hand of javascript', now(), 'https://imgur.com/fZiBhZ8', 567 );
+ insert into posts( authorid, posttext,  image, likes) 
+ values (4, 'Typescript is the super hand of javascript', 'https://imgur.com/fZiBhZ8', 567 );
 
- insert into posts( authorid, posttext, postdate, image, likes) 
- values (5, 'Node JS a javascript work environment', now(),  'https://imgur.com/kbDOHV2', 654 );
+ insert into posts( authorid, posttext, image, likes) 
+ values (5, 'Node JS a javascript work environment',  'https://imgur.com/kbDOHV2', 654 );
 
 -- category seeds --
 
@@ -87,4 +87,4 @@ values (10, 5,'How to build a full stack project ', 'To build a full stack site,
 
 
 INSERT INTO report (caseid, reportid, username, issue)
-values(1, 1, lukeshaw, "The link to java  tutorial is not functional")
+values(1, 1, "lukeshaw", "The link to java  tutorial is not functional")
