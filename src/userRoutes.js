@@ -91,8 +91,8 @@ app.put('/updateUser/:userid', (req, res) => {
     let userid = req.params.userid;
     let user = req.body;
 
-    db.query("UPDATE users SET firstname=$1, lastname=$2, username=$3, password=$4, email=$5, city=$6, state=$7, account=$8 WHERE userid=$9",
-        [user.firstname, user.lastname, user.username, user.password, user.email, user.city, user.state, user.account, userid], (error, results) => {
+    db.query("UPDATE users SET firstname=$1, lastname=$2, username=$3, password=$4, email=$5, city=$6, state=$7, account=$8, pic=$9 WHERE userid=$10",
+        [user.firstname, user.lastname, user.username, user.password, user.email, user.city, user.state, user.account, user.pic, userid], (error, results) => {
         if (error) {
             throw error;
         }
