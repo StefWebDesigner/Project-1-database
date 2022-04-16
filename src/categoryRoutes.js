@@ -23,6 +23,26 @@ app.get('/getAll', (req, res) => {
     })
 })
 
+
+
+//THIS IS THE NEWEST WAY TO CREATE A POST
+app.post('/createTip', (req, res) => {
+    let { categoryid, title, mainbodycontent } = req.body;
+
+    db.query('INSERT INTO category (categoryid, title, mainbodycontent) VALUES ($1, $2, $3) RETURNING id',
+        [ categoryid, title, mainbodycontent], (error, results) => {
+
+            if (error) {
+                throw error;
+            }
+
+            let id = results.rows[0].id;
+            res.status(200).send(id);
+        }
+    );
+})
+
+
 // get category by id
 // http://localhost:4000/categories/categoryById/id
 app.get("/categoryById/:id", (req, res) => {

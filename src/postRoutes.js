@@ -122,7 +122,7 @@ app.put('/updatePost/:postid', (req, res) => {
 app.delete('/deletePost/:postid', (req, res) => {
 
     let postid = req.params.postid;
-
+    
 
     //delete post from post table
     db.query("DELETE FROM posts WHERE postid=$1 RETURNING authorid", [postid], (error, results) => {
@@ -130,6 +130,7 @@ app.delete('/deletePost/:postid', (req, res) => {
         if (error) {
             throw error;
         }
+        
       
         let userid = results.rows[0].authorid;
 

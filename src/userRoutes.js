@@ -107,14 +107,23 @@ app.put('/updateUser/:userid', (req, res) => {
 app.delete('/deleteUser/:username', (req, res) => {
 
     let username = req.params.username;
-    
-    db.query("DELETE FROM users WHERE username=$1", [username], (error, results) => {
+
+    db.query("DELETE FROM report WHERE username=$1", [username], (error, results) => {
         if (error) {
             throw error;
-         }
+        }
 
-        res.status(200).send(`${username}`);
+        db.query("DELETE FROM users WHERE username=$1", [username], (error, results) => {
+            if (error) {
+                throw error;
+            }
+
+
+            res.status(200).send(`${username}`);
+        })
+
     });
+
 })
 
 
