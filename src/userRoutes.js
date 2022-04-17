@@ -64,10 +64,10 @@ app.get("/userByLocation/:location", (req, res) => {
         }
         if (results.rowCount > 0) {
             //username found
-            res.status(200).json(results.rows[0]);
+            res.status(200).json(results.rows);
         } else {
             //no user found
-            res.status(200).json(null);
+            res.status(200).json([]);
         }
     });
 })
