@@ -341,7 +341,7 @@ app.post('/makereport', (req, res) => {
     );
 });
 
-
+//FOR THE NULL BUTTON
 // http://localhost:4000/categories/deleteCategory/caseid
 app.delete('/deleteCategory/:caseid', (req, res) => {
 
@@ -354,6 +354,22 @@ app.delete('/deleteCategory/:caseid', (req, res) => {
 
     });
 })
+
+// // http://localhost:4000/categories/deleteCategory/
+// app.delete('/deleteCategory/:caseid', (req, res) => {
+//
+//     let caseid = req.params.caseid;
+//     db.query("DELETE FROM report WHERE caseid=$1", [caseid], (error, results) => {
+//         if (error) {
+//             throw error;
+//         }
+//         res.status(200).send(`Report with caseid: ${caseid} is removed from reports list.`);
+//
+//     });
+// })
+
+
+
 
 //http://localhost:4000/categories/updateCategory/id
 app.put('/updateCategory/:id', (req, res) => {

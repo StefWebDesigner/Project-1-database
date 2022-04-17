@@ -31,6 +31,28 @@ app.get("/userByName/:username", (req, res) => {
     });
 })
 
+//THIS IS FOR THE GETTIING A USER BY USERNAMEn for the search bar
+app.get("/userByNameSearch/:username", (req, res) => {
+    const username = req.params.username;
+
+    db.query('SELECT * FROM users WHERE username=$1', [username], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            //username found
+            res.status(200).json(results.rows);
+        } else {
+            //no user found
+            res.status(200).json([]);
+        }
+    });
+})
+
+
+
+
+
 //TO GET LOCATION
 // http://localhost:4000/users/userByLocation/location
 app.get("/userByLocation/:location", (req, res) => {
