@@ -57,11 +57,9 @@ values (5,'How to build a full stack project ', 'To build a full stack site, you
 
 
 --  report seeds
-insert into report (reportid, username, issue)
-values (1, 'lukeshaw', 'link to java tutorial didnt work');
-insert into report (reportid, username, issue)
-values (4, 'davidsdegea', 'Made an inappropriate comment');
-insert into report (reportid, username, issue)
-values (5, 'CR7junior', 'Made a false statement...Messi is better');
-insert into report (reportid, username, issue)
-values (7, 'pulisic22', 'They were rude in a comment');
+insert into report (postid, userid, username, issue)
+values (13, 2, 'anthonymartial', 'link to java tutorial didnt work');
+insert into report (postid, userid, username, issue)
+values (14, 7, 'pulisic22', 'Made an inappropriate comment');
+insert into report (postid, userid, username, issue)
+values (15, 5, 'CR7junior', 'Made a false statement...Messi is better');

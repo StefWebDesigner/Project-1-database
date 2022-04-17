@@ -134,7 +134,7 @@ app.delete('/deletePost/:postid', (req, res) => {
       
         let userid = (results.rows[0].postid).toString();
 
-        res.status(200).send(userid);
+        res.status(200).send({userid});
         // res.sendStatus(200);
     });
 })

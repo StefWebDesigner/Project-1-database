@@ -4,6 +4,7 @@
     <list default="true" id="bc001a99-039a-4585-bc85-7898e341cfd5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/seeds.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db/seeds.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/categoryRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/categoryRoutes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/postRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/postRoutes.js" afterDir="false" />
     </list>
@@ -72,7 +73,7 @@
       <workItem from="1650052395103" duration="2300000" />
       <workItem from="1650121480458" duration="9220000" />
       <workItem from="1650138010622" duration="6343000" />
-      <workItem from="1650148021838" duration="6013000" />
+      <workItem from="1650148021838" duration="8763000" />
     </task>
     <servers />
   </component>

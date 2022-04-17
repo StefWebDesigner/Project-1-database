@@ -342,7 +342,7 @@ app.post('/makereport', (req, res) => {
 });
 
 
-// http://localhost:4000/categories/deleteCategory/5
+// http://localhost:4000/categories/deleteCategory/caseid
 app.delete('/deleteCategory/:caseid', (req, res) => {
 
     let caseid = req.params.caseid;
