@@ -22,7 +22,7 @@ CREATE TABLE users(
 
 CREATE TABLE posts(
     postid serial primary key,
-    authorid int ,
+    authorid int,
     posttext text,
     postdate timestamp,
     image varchar(100),

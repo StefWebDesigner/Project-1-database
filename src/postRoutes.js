@@ -125,17 +125,17 @@ app.delete('/deletePost/:postid', (req, res) => {
     
 
     //delete post from post table
-    db.query("DELETE FROM posts WHERE postid=$1 RETURNING authorid", [postid], (error, results) => {
+    db.query("DELETE FROM posts WHERE postid=$1 RETURNING postid", [postid], (error, results) => {
 
         if (error) {
             throw error;
         }
         
       
-        let userid = results.rows[0].authorid;
-
+        let userid = (results.rows[0].postid).toString();
 
         res.status(200).send(userid);
+        // res.sendStatus(200);
     });
 })
 
