@@ -40,8 +40,8 @@ create table category (
 
 create table report (
     caseid serial primary key,
-    reportid int references users(userid),
-    refpostid int references posts(postid),
+    userid int references users(userid),
+    postid int references posts(postid),
     username varchar(30),
     issue text
 );
