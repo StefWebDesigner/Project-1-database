@@ -31,10 +31,10 @@ CREATE TABLE posts(
 
 
 create table category (
-      id int primary key,
+      id serial primary key,
 	    categoryid int,
       title text,
-      mainbodycontent text,
+      mainbodycontent text
 );
 
 create table tips (
