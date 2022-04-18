@@ -29,21 +29,12 @@ CREATE TABLE posts(
     likes int
  );
 
--- the original
-create table category (
-      id int primary key,
-      title text,
-      mainbodycontent text,
-      genreCategory varchar(50)
-);
 
--- the new change
 create table category (
-      id int primary key,
-	categoryid int,
+      id serial primary key,
+	    categoryid int,
       title text,
-      mainbodycontent text,
-      genreCategory varchar(50)
+      mainbodycontent text
 );
 
 create table tips (
@@ -57,6 +48,7 @@ create table report (
     caseid serial primary key,
     reportid int references users(userid),
     username varchar(30),
+    postid int references posts(postid),
     issue text
 );
 
