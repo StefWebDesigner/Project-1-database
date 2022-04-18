@@ -176,6 +176,21 @@ app.get('/maxlikepost/', (req, res) => {
     });
 });
 
+//updates number of likes
+// http://localhost:4000/posts/likes/postid
+app.put('/likes/:postid', (req, res) => {
+
+    let postid = req.params.postid;
+
+    db.query("UPDATE posts SET likes=$1 WHERE postid=$2",
+        [req.body.likes, postid], (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.status(200).end();
+        });
+})
+
 
 
 
