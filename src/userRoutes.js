@@ -31,6 +31,28 @@ app.get("/userByName/:username", (req, res) => {
     });
 })
 
+//THIS IS FOR THE GETTIING A USER BY USERNAMEn for the search bar
+app.get("/userByNameSearch/:username", (req, res) => {
+    const username = req.params.username;
+
+    db.query('SELECT * FROM users WHERE username=$1', [username], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.rowCount > 0) {
+            //username found
+            res.status(200).json(results.rows);
+        } else {
+            //no user found
+            res.status(200).json([]);
+        }
+    });
+})
+
+
+
+
+
 //TO GET LOCATION
 // http://localhost:4000/users/userByLocation/location
 app.get("/userByLocation/:location", (req, res) => {
@@ -42,10 +64,10 @@ app.get("/userByLocation/:location", (req, res) => {
         }
         if (results.rowCount > 0) {
             //username found
-            res.status(200).json(results.rows[0]);
+            res.status(200).json(results.rows);
         } else {
             //no user found
-            res.status(200).json(null);
+            res.status(200).json([]);
         }
     });
 })
@@ -107,14 +129,23 @@ app.put('/updateUser/:userid', (req, res) => {
 app.delete('/deleteUser/:username', (req, res) => {
 
     let username = req.params.username;
-    
-    db.query("DELETE FROM users WHERE username=$1", [username], (error, results) => {
+
+    db.query("DELETE FROM report WHERE username=$1", [username], (error, results) => {
         if (error) {
             throw error;
-         }
+        }
 
-        res.status(200).send(`${username}`);
+        db.query("DELETE FROM users WHERE username=$1", [username], (error, results) => {
+            if (error) {
+                throw error;
+            }
+
+
+            res.status(200).send(`${username}`);
+        })
+
     });
+
 })
 
 

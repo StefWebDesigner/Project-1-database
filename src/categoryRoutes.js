@@ -23,6 +23,33 @@ app.get('/getAll', (req, res) => {
     })
 })
 
+
+
+//THIS IS THE NEWEST WAY TO CREATE A POST
+// http://localhost:4000/categories/createTip
+app.post('/createTip', (req, res) => {
+    let { categoryid, title, mainbodycontent } = req.body;
+
+    db.query('INSERT INTO category (categoryid, title, mainbodycontent) VALUES ($1, $2, $3) RETURNING id',
+        [ categoryid, title, mainbodycontent], (error, results) => {
+
+            if (error) {
+                throw error;
+            }
+
+            (results.rows[0].id).toString()
+
+            let id = (results.rows[0].id).toString();
+            // let id = results.rows[0].id;
+            res.status(200).send(id);
+            // res.status(200).send((results[0].id).toString());
+
+
+        }
+    );
+})
+
+
 // get category by id
 // http://localhost:4000/categories/categoryById/id
 app.get("/categoryById/:id", (req, res) => {
@@ -90,11 +117,12 @@ app.get("/reportByReportid/:reportid", (req, res) => {
 });
 
 //THIS IS THE NEWEST WAY TO CREATE A POST
-app.post('/createTip', (req, res) => {
-    let { categoryid, title, mainbodycontent, genrecategory } = req.body;
 
-    db.query('INSERT INTO category (categoryid, title, mainbodycontent, genrecategory) VALUES ($1, $2, $3, $4) RETURNING id',
-        [ categoryid, title, mainbodycontent, genrecategory], (error, results) => {
+app.post('/createTip', (req, res) => {
+    let { categoryid, title, mainbodycontent} = req.body;
+
+    db.query('INSERT INTO category (categoryid, title, mainbodycontent) VALUES ($1, $2, $3, $4) RETURNING id',
+        [ categoryid, title, mainbodycontent], (error, results) => {
 
             if (error) {
                 throw error;
@@ -313,9 +341,9 @@ app.post('/makereport', (req, res) => {
     );
 });
 
-
-
-app.delete('/deleteCategory/:id', (req, res) => {
+//FOR THE NULL BUTTON
+// http://localhost:4000/categories/deleteCategory/caseid
+app.delete('/deleteCategory/:caseid', (req, res) => {
 
     let caseid = req.params.caseid;
     db.query("DELETE FROM report WHERE caseid=$1", [caseid], (error, results) => {
@@ -326,6 +354,22 @@ app.delete('/deleteCategory/:id', (req, res) => {
 
     });
 })
+
+// // http://localhost:4000/categories/deleteCategory/
+// app.delete('/deleteCategory/:caseid', (req, res) => {
+//
+//     let caseid = req.params.caseid;
+//     db.query("DELETE FROM report WHERE caseid=$1", [caseid], (error, results) => {
+//         if (error) {
+//             throw error;
+//         }
+//         res.status(200).send(`Report with caseid: ${caseid} is removed from reports list.`);
+//
+//     });
+// })
+
+
+
 
 //http://localhost:4000/categories/updateCategory/id
 app.put('/updateCategory/:id', (req, res) => {
