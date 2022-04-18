@@ -37,54 +37,27 @@ insert into posts( authorid, posttext, image, likes)
  values (5, 'Node JS a javascript work environment',  'https://imgur.com/kbDOHV2', 654 );
 
 -- category seeds --
-
-insert into category( id, title, mainbodycontent, genreCategory)
-values( 22, 'Super fun activity', 'bicking is super fun That I would love to bick very often', 'Activity');
-
-
-insert into category(id, title, mainbodycontent, genreCategory)
-values(23, 'Super delicious food', 'Wagiyu beef is so delicious  that I want to eat it  very often', 'Food');
-
-
-insert into category(id, title, mainbodycontent, genreCategory)
-values(24, 'New cocktail drink in town', 'a cocktail called pain killer is so good  that I would love to have it  very often', 'Drink')
-
-
-insert into category (id, categoryid, title, mainbodycontent, genrecategory)
-values (1, 1,'Java tips', 'In our article today, we will look at how you use polyphorism', 'Java');
-insert into category (id, categoryid, title, mainbodycontent, genrecategory)
-values (2, 1,'Java tips Continued', 'This mini post has several demos that will aid you in becoming a pro in Java', 'Java');
-insert into category (id, categoryid, title, mainbodycontent, genrecategory)
-values (3, 2,'React for beginners', 'Today, we are working on a Hello World project to make React less scary.', 'React');
-insert into category (id, categoryid, title, mainbodycontent, genrecategory)
-values (4, 2,'React hooks', 'using all hookes...when to use them and how to use them. All here with this article', 'React');
-insert into category (id, categoryid, title, mainbodycontent, genrecategory)
-values (5, 3,'Beginner to coding', 'Hello World', 'Beginner');
-insert into category (id, categoryid, title, mainbodycontent, genrecategory)
-values (6, 3,'Start with HTML ', 'HTML for learners', 'Beginner');
-insert into category (id, categoryid, title, mainbodycontent, genrecategory)
-values (7, 4,'Typescript', 'Getting started with typescript by creating classes...lets start here...', 'Intermidate');
-insert into category (id, categoryid, title, mainbodycontent, genrecategory)
-values (8, 4,'Using Redux Today', 'The pros and cons of using redux and how to incorperate in your next projec.', 'Intermidate');
-insert into category (id, categoryid, title, mainbodycontent, genrecategory)
-values (9, 5,'Way to expand you programming skills', 'To improve you program skills, you need to experiement with some of these concepts...', 'Advanced');
-insert into category (id, categoryid, title, mainbodycontent, genrecategory)
-values (10, 5,'How to build a full stack project ', 'To build a full stack site, you need to make a database and website. Follow for more...', 'Advanced');
-
-
-
-
-
-
-
-
-
- insert into tips (tiptitle, tipbody, tipgenre)
- values('title example', 'fact to java', 'Java');
-
+insert into category (categoryid, title, mainbodycontent)
+values (2,'React for beginners', 'Today, we are working on a Hello World project to make React less scary.');
+insert into category (categoryid, title, mainbodycontent)
+values (2,'React hooks', 'using all hookes...when to use them and how to use them. All here with this article');
+insert into category (categoryid, title, mainbodycontent)
+values (3,'Beginner to coding', 'Hello World');
+insert into category (categoryid, title, mainbodycontent)
+values (3,'Start with HTML ', 'HTML for learners');
+insert into category (categoryid, title, mainbodycontent)
+values (4,'Typescript', 'Getting started with typescript by creating classes...lets start here...');
+insert into category (categoryid, title, mainbodycontent)
+values (4,'Using Redux Today', 'The pros and cons of using redux and how to incorperate in your next projec.');
+insert into category (categoryid, title, mainbodycontent)
+values (5,'Way to expand you programming skills', 'To improve you program skills, you need to experiement with some of these concepts...');
+insert into category (categoryid, title, mainbodycontent)
+values (5,'How to build a full stack project ', 'To build a full stack site, you need to make a database and website. Follow for more...');
 
 --  report seeds
-
-
-INSERT INTO report (caseid, reportid, username, issue)
-values(1, 1, "lukeshaw", "The link to java  tutorial is not functional")
+insert into report (postid, userid, username, issue)
+values (13, 2, 'anthonymartial', 'link to java tutorial didnt work');
+insert into report (postid, userid, username, issue)
+values (14, 7, 'pulisic22', 'Made an inappropriate comment');
+insert into report (postid, userid, username, issue)
+values (15, 5, 'CR7junior', 'Made a false statement...Messi is better');
