@@ -22,10 +22,10 @@ app.get('/getAllReports', (req, res) => {
 
 // get all reports against a specific user
 // http://localhost:4000/categories/reportByReportid/id
-app.get("/reportByReportid/:reportid", (req, res) => {
-    const reportid = req.params.reportid;
+app.get("/reportByUserid/:userid", (req, res) => {
+    const userid = req.params.userid;
 
-    db.query('SELECT * FROM report WHERE reportid=$1', [reportid], (error, results) => {
+    db.query('SELECT * FROM report WHERE userid=$1', [userid], (error, results) => {
         if (error) {
             throw error;
         }
@@ -42,16 +42,16 @@ app.get("/reportByReportid/:reportid", (req, res) => {
 // Make a new report
 // http://localhost:4000/categories/newReport
 app.post('/newReport', (req, res) => {
-    let { reportid, username, postid, issue } = req.body;
+    let { userid, username, postid, issue } = req.body;
 
-    db.query('INSERT INTO report (reportid, username, postid, issue) VALUES ($1, $2, $3, $4) RETURNING reportid',
-        [reportid, username, postid, issue], (error, results) => {
+    db.query('INSERT INTO report (userid, username, postid, issue) VALUES ($1, $2, $3, $4) RETURNING caseid',
+        [userid, username, postid, issue], (error, results) => {
 
             if (error) {
                 throw error;
             }
 
-            let caseid = results.rows[0].reportid;
+            let caseid = results.rows[0].caseid;
             res.status(200).send({caseid});
         }
     );
