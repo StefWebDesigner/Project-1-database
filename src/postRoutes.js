@@ -67,7 +67,7 @@ app.get("/PostByid/:postid", (req, res) => {
 app.get("/PostByUser/:authorid", (req, res) => {
     const authorid = req.params.authorid;
 
-    db.query('SELECT * FROM posts WHERE authorid=$1', [authorid], (error, results) => {
+    db.query('SELECT * FROM posts WHERE authorid=$1 ORDER BY postdate DESC', [authorid], (error, results) => {
         if (error) {
             throw error;
         }
