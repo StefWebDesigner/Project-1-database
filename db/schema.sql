@@ -32,10 +32,9 @@ CREATE TABLE posts(
 
 create table category (
       id serial primary key,
-	categoryid int,
+	  categoryid int,
       title text,
-      mainbodycontent text,
-      genreCategory varchar(50)
+      mainbodycontent text
 );
 
 create table report (

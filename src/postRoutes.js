@@ -31,7 +31,7 @@ app.get("/getAllPosts", (req, res) => {
 //http://localhost:4000/posts/withUserInfo
 app.get('/withUserInfo', (req,res)=>{
 
-    db.query('SELECT p.postid, p.posttext, p.postdate, p.likes, u.username, u.account, u.pic FROM posts p LEFT JOIN users u ON p.authorid=u.userid ORDER BY postdate DESC', (error, results) => {
+    db.query('SELECT p.postid, p.posttext, p.postdate, p.likes, u.userid, u.username, u.account, u.pic FROM posts p LEFT JOIN users u ON p.authorid=u.userid ORDER BY postdate DESC', (error, results) => {
         if (error) {
             throw error
         }
@@ -67,13 +67,13 @@ app.get("/PostByid/:postid", (req, res) => {
 app.get("/PostByUser/:authorid", (req, res) => {
     const authorid = req.params.authorid;
 
-    db.query('SELECT * FROM posts WHERE authorid=$1', [authorid], (error, results) => {
+    db.query('SELECT * FROM posts WHERE authorid=$1 ORDER BY postdate DESC', [authorid], (error, results) => {
         if (error) {
             throw error;
         }
         if (results.rowCount > 0) {
             //postid found
-            res.status(200).json(results.rows[0]);
+            res.status(200).json(results.rows);
         } else {
             //no post found
             res.status(200).json(null);

@@ -54,8 +54,6 @@ values (5,'Way to expand you programming skills', 'To improve you program skills
 insert into category (categoryid, title, mainbodycontent)
 values (5,'How to build a full stack project ', 'To build a full stack site, you need to make a database and website. Follow for more...');
 
-
-
 --  report seeds
 insert into report (postid, userid, username, issue)
 values (13, 2, 'anthonymartial', 'link to java tutorial didnt work');

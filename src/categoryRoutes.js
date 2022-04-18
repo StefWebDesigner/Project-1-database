@@ -2,9 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./dbconnect');
 const cors = require('cors');
-const axios = require("axios");
 
-const port = 4000;
 const app = express();
 
 app.use(bodyParser.json());
@@ -87,34 +85,7 @@ app.post('/newCategory', (req, res) => {
     );
 })
 
-// to retrieve all reports
-//// http://localhost:4000/categories/getAllReports
-app.get('/getAllReports', (req, res) => {
-    db.query('SELECT * FROM report', (error, results) => {
-        if (error) {
-            throw error
-        } else
-            res.status(200).json(results.rows);
-    })
-});
 
-// get report by reportid
-// http://localhost:4000/categories/reportByReportid/id
-app.get("/reportByReportid/:reportid", (req, res) => {
-    const reportid = req.params.reportid;
-
-    db.query('SELECT * FROM report WHERE reportid=$1', [reportid], (error, results) => {
-        if (error) {
-            throw error;
-        }
-        if (results.rowCount > 0) {
-            res.status(200).json(results.rows);
-        } else {
-            
-            res.status(200).json(null);
-        }
-    });
-});
 
 //THIS IS THE NEWEST WAY TO CREATE A POST
 
@@ -136,25 +107,6 @@ app.post('/createTip', (req, res) => {
 
 // insert into category (id, categoryid, title, mainbodycontent, genrecategory)
 // values (1, 1,'Java tips', 'In our article today, we will look at how you use polyphorism', 'Java');
-
-
-// Make a new report
-// http://localhost:4000/categories/newReport
-app.post('/newReport', (req, res) => {
-    let { reportid, username, issue } = req.body;
-
-    db.query('INSERT INTO report (reportid, username, issue) VALUES ($1, $2, $3) RETURNING reportid',
-        [ reportid, username, issue], (error, results) => {
-
-        if (error) {
-            throw error;
-        }
-
-        let caseid = results.rows[0].reportid;
-        res.status(200).send({caseid});
-        }
-    );
-})
 
 
 //STEFAN'S ATTEMPT ---- This is the offical one
@@ -275,15 +227,6 @@ app.get('/totaltips/advanced', (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-
-
 //TO POST A CATEGORY
 
 //????
@@ -306,45 +249,12 @@ app.post('/newtips', (req, res) => {
         }
     );
 });
-// get reports
-// http://localhost:4000/categories/retrieveReport/caseid
-app.get("/retrieveReport/:caseid", (req, res) => {
-    const caseid = req.params.caseid;
 
-    db.query('SELECT * FROM report WHERE caseid=$1', [caseid], (error, results) => {
-        if (error) {
-            throw error;
-        }
-        if (results.rowCount > 0) {
-            //id  found
-            res.status(200).json(results.rows);
-        } else {
-            //no category found
-            res.status(200).json(null);
-        }
-    });
-});
-
-
-// http://localhost:4000/categories/makereport
-app.post('/makereport', (req, res) => {
-    let { username, issue } = req.body;
-
-    db.query('INSERT INTO report (username, issue) VAlUES ($1, $2) RETURNING caseid', [username, issue], (error, results) => {
-        if (error) {
-            throw error;
-        }
-            let id = results.rows[0].caseid;
-
-            res.status(200).send(` report generated added with ID: ${caseid}`);
-        }
-    );
-});
 
 //FOR THE NULL BUTTON
 // http://localhost:4000/categories/deleteCategory/caseid
 app.delete('/deleteCategory/:caseid', (req, res) => {
-
+        
     let caseid = req.params.caseid;
     db.query("DELETE FROM report WHERE caseid=$1", [caseid], (error, results) => {
         if (error) {
@@ -354,21 +264,6 @@ app.delete('/deleteCategory/:caseid', (req, res) => {
 
     });
 })
-
-// // http://localhost:4000/categories/deleteCategory/
-// app.delete('/deleteCategory/:caseid', (req, res) => {
-//
-//     let caseid = req.params.caseid;
-//     db.query("DELETE FROM report WHERE caseid=$1", [caseid], (error, results) => {
-//         if (error) {
-//             throw error;
-//         }
-//         res.status(200).send(`Report with caseid: ${caseid} is removed from reports list.`);
-//
-//     });
-// })
-
-
 
 
 //http://localhost:4000/categories/updateCategory/id
@@ -412,9 +307,5 @@ app.delete('/deleteCategory/:id', (req, res) => {
 
     });
 })
-
-
-
-
 
 module.exports = app;
