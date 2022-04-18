@@ -132,12 +132,14 @@ app.delete('/deletePost/:postid', (req, res) => {
         }
         
       
-        let userid = (results.rows[0].postid).toString();
+        let userid = results.rows[0].postid;
 
         res.status(200).send({userid});
         // res.sendStatus(200);
     });
 })
+
+
 
 //chat initiate
 app.post('/initchat', (req, res) => {
